@@ -2,10 +2,16 @@ package com.vinicius.springboot.mc.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Classe responsável por identificar uma categoria.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@Entity
 public class Categoria implements Serializable{
 
 	/**
@@ -16,6 +22,8 @@ public class Categoria implements Serializable{
 	/**
 	 * Representa o Identificador da categoria.
 	 */
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	/**
