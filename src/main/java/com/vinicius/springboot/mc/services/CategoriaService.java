@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.vinicius.springboot.mc.model.Categoria;
 import com.vinicius.springboot.mc.repositories.CategoriaRepository;
+import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
+
 
 /**
  * Service responsável por nossas operações de CRUD.
@@ -18,9 +20,10 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	public Categoria buscar( Integer id ) {
+	public Categoria buscar( Integer id )  {
 		
 		Optional<Categoria> categoriaObj = categoriaRepository.findById(id);
-		return categoriaObj.orElse(null);
+		return categoriaObj.orElseThrow(() -> new ObjectNotFoundException (
+				"Categoria não encontrada! Identificador: " + id + " Tipo do objeto: " + Categoria.class.getName()));
 	}
 }

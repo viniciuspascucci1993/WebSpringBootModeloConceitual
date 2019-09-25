@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Classe responsável por identificar os atributos de um produto.
  * @author Vinicius-PC - Viniocius Torres Pascucci.
@@ -64,6 +66,7 @@ public class Produto implements Serializable {
 	/**
 	 * Representa uma lista de categorias.
 	 */
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable( name = "PRODUTO_CATEGORIA",
 	joinColumns = @JoinColumn( name = "produto_id"), 
