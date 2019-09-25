@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vinicius.springboot.mc.model.Categoria;
+import com.vinicius.springboot.mc.model.Cidade;
+import com.vinicius.springboot.mc.model.Estado;
 import com.vinicius.springboot.mc.model.Produto;
 import com.vinicius.springboot.mc.repositories.CategoriaRepository;
+import com.vinicius.springboot.mc.repositories.CidadeRepository;
+import com.vinicius.springboot.mc.repositories.EstadoRepository;
 import com.vinicius.springboot.mc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,12 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EstadoRepository esraEstadoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(WebSpringBootComercialMcApplication.class, args);
@@ -42,9 +52,22 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
 		produto3.getCategorias().addAll(Arrays.asList(categoria1));
 		
-		
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2));
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
+		
+		Estado estado1  = new Estado(null, "Minas-gerais");
+		Estado estado2 = new Estado(null, "São Paulo");
+		
+		Cidade cidade1 = new Cidade(null, "Uberlândia", estado1);
+		Cidade cidade2 = new Cidade(null, "Barueri", estado2);
+		Cidade cidade3 = new Cidade(null, "Sorocaba'", estado2);
+		
+		estado1.getCidades().addAll(Arrays.asList(cidade1));
+		estado2.getCidades().addAll(Arrays.asList(cidade2, cidade3));
+		
+		esraEstadoRepository.saveAll(Arrays.asList(estado1, estado2));
+		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
+		
 	}
 
 }
