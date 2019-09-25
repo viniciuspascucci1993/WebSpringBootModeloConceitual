@@ -1,14 +1,17 @@
 package com.vinicius.springboot.mc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
- * Classe responsável por identificar uma categoria.
+ * Classe responsável por identificar os atributos de uma categoria.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @Entity
@@ -32,6 +35,12 @@ public class Categoria implements Serializable{
 	private String nomeCategoria;
 	
 	/**
+	 * Representa uma lista de produtos;
+	 */
+	@ManyToMany( mappedBy = "categorias")
+	private List<Produto> produtos = new ArrayList<Produto>();
+	
+	/**
 	 * Construtor vazio.
 	 */
 	public Categoria() { }
@@ -49,7 +58,7 @@ public class Categoria implements Serializable{
 
 	/**
 	 * Metodo get().
-	 * @return id - Integer - Representa o identificador.
+	 * @return id - Integer - identificador da categoria.
 	 */
 	public Integer getId() {
 		return this.id;
@@ -57,7 +66,7 @@ public class Categoria implements Serializable{
 	
 	/**
 	 * Metodo set().
-	 * @param id - Integer - Representa o identificador.
+	 * @param id - Integer - identificador da categoria.
 	 */
 	public void setId(final Integer id) {
 		this.id = id;
@@ -65,7 +74,7 @@ public class Categoria implements Serializable{
 
 	/**
 	 * Metodo get().
-	 * @return nomeCategoria - String - Representa o nome da categoria.
+	 * @return nomeCategoria - String - nome da categoria.
 	 */
 	public String getNomeCategoria() {
 		return this.nomeCategoria;
@@ -73,10 +82,27 @@ public class Categoria implements Serializable{
 
 	/**
 	 *Metodo set(). 
-	 * @param nomeCategoria - String - Representa o nome da categoria.
+	 * @param nomeCategoria - String - nome da categoria..
 	 */
 	public void setNomeCategoria(final String nomeCategoria) {
 		this.nomeCategoria = nomeCategoria;
+	}
+	
+	
+	/**
+	 * Metodo get().
+	 * @return produtos - List<Produto> - representa uma lista de produtos
+	 */
+	public List<Produto> getProdutos() {
+		return this.produtos;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param produtos - List<Produto> - representa uma lista de produtos
+	 */
+	public void setProdutos(final List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	/**
@@ -111,7 +137,5 @@ public class Categoria implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 	
 }

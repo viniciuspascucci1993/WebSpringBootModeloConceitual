@@ -10,7 +10,4 @@ import com.vinicius.springboot.mc.model.Categoria;
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
-	
-	
-}
+public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{ }
