@@ -25,7 +25,7 @@ public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Representa o Identificador da categoria.
+	 * Representa o identificador da categoria.
 	 */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)

@@ -23,7 +23,7 @@ public class Estado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Representa o id.
+	 * Representa o identificador do estado.
 	 */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)

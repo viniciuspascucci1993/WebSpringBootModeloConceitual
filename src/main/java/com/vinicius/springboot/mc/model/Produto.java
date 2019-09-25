@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.vinicius.springboot.mc.model.enums.SituacaoProduto;
 
 /**
  * Classe responsável por identificar os atributos de um produto.
@@ -61,7 +62,7 @@ public class Produto implements Serializable {
 	/**
 	 * Representa se este produto está disponível ou não;
 	 */
-	private boolean disponivel;
+	private Integer disponivel;
 	
 	/**
 	 * Representa uma lista de categorias.
@@ -89,7 +90,7 @@ public class Produto implements Serializable {
 	 * @param cor - String - cor do produto.
 	 * @param disponivel - boolean - disponivel ou não.
 	 */
-	public Produto(Integer id, String nomeProduto, double preco, Integer quantidade, double peso, String cor, boolean disponivel) {
+	public Produto(Integer id, String nomeProduto, double preco, Integer quantidade, double peso, String cor, SituacaoProduto disponivel) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
@@ -97,7 +98,7 @@ public class Produto implements Serializable {
 		this.quantidade = quantidade;
 		this.peso = peso;
 		this.cor = cor;
-		this.disponivel = disponivel;
+		this.disponivel = disponivel.getCodigoSituacao();
 	}
 
 	/**
@@ -200,16 +201,16 @@ public class Produto implements Serializable {
 	 * Metodo get().
 	 * @return disponivel - boolean - verifica se produto esta disponivel ou não.
 	 */
-	public boolean isDisponivel() {
-		return this.disponivel;
+	public SituacaoProduto isDisponivel() {
+		return SituacaoProduto.toEnum(disponivel);
 	}
 
 	/**
 	 * Metodo set().
 	 * @param disponivel - boolean - verifica se produto esta disponivel ou não.
 	 */
-	public void setDisponivel(final boolean disponivel) {
-		this.disponivel = disponivel;
+	public void setDisponivel(final SituacaoProduto disponivel) {
+		this.disponivel = disponivel.getCodigoSituacao();
 	}
 	
 	/**

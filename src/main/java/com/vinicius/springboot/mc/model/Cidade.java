@@ -22,7 +22,7 @@ public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Representa o id.
+	 * Representa o identificador da cidade.
 	 */
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
