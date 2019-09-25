@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Classe responsável por identificar os atributos de um estado.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
@@ -37,6 +39,7 @@ public class Estado implements Serializable{
 	/**
 	 * Representa uma lista de cidades.
 	 */
+	@JsonBackReference
 	@OneToMany(mappedBy = "estado")
 	private List<Cidade> cidades = new ArrayList<Cidade>();
 	
