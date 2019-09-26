@@ -66,6 +66,12 @@ public class Cliente implements Serializable{
 	private Set<String> telefones = new HashSet<String>();
 	
 	/**
+	 * Representa uma lista de pedidos.
+	 */
+	@OneToMany( mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
+	
+	/**
 	 * Representa o tipo enumerado do cliente.
 	 */
 	private Integer tipoCliente;
@@ -186,6 +192,23 @@ public class Cliente implements Serializable{
 	 */
 	public void setTelefones(final Set<String> telefones) {
 		this.telefones = telefones;
+	}
+	
+	/**
+	 * Metodo get().
+	 * @return pedidos - List<Pedido> - lista de pedidos.
+	 */
+	public List<Pedido> getPedidos() {
+		return this.pedidos;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param pedidos - List<Pedido> - lista de pedidos.
+	 */
+	@OneToMany( mappedBy = "cliente")
+	public void setPedidos(final List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	/**

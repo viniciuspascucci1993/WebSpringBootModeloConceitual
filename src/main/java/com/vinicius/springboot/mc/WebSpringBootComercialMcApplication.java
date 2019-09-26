@@ -1,5 +1,6 @@
 package com.vinicius.springboot.mc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,12 @@ import com.vinicius.springboot.mc.model.Cidade;
 import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.Endereco;
 import com.vinicius.springboot.mc.model.Estado;
+import com.vinicius.springboot.mc.model.Pagamento;
+import com.vinicius.springboot.mc.model.PagamentoComBoleto;
+import com.vinicius.springboot.mc.model.PagamentoComCartao;
+import com.vinicius.springboot.mc.model.Pedido;
 import com.vinicius.springboot.mc.model.Produto;
+import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 import com.vinicius.springboot.mc.model.enums.SituacaoProduto;
 import com.vinicius.springboot.mc.model.enums.TipoCliente;
 import com.vinicius.springboot.mc.repositories.CategoriaRepository;
@@ -20,6 +26,8 @@ import com.vinicius.springboot.mc.repositories.CidadeRepository;
 import com.vinicius.springboot.mc.repositories.ClienteRepository;
 import com.vinicius.springboot.mc.repositories.EnderecoRepository;
 import com.vinicius.springboot.mc.repositories.EstadoRepository;
+import com.vinicius.springboot.mc.repositories.PagamentoRepository;
+import com.vinicius.springboot.mc.repositories.PedidoRepository;
 import com.vinicius.springboot.mc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -42,6 +50,12 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(WebSpringBootComercialMcApplication.class, args);
@@ -94,6 +108,25 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		
 		clienteRepository.saveAll(Arrays.asList(cliente01, cliente02));
 		enderecoRepository.saveAll(Arrays.asList(endereco01, endereco02));
+		
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		Pedido pedido01 = new Pedido(null, formatoData.parse("30/09/2019 10:32:55"), endereco01, cliente02);
+		Pedido pedido02 = new Pedido(null, formatoData.parse("10/12/2019 20:34:10"), endereco02, cliente01);
+		
+		Pagamento pagamento01 = new PagamentoComCartao(null, SituacaoPagamento.QUITADO, pedido01, 6);
+		pedido01.setPagamento(pagamento01);
+		
+		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.CANCELADO, pedido02, formatoData.parse("30/06/2019 23:59:59"), 
+					formatoData.parse("22/05/2019 23:59:59"));
+		
+		pedido02.setPagamento(pagamento02);
+		
+		cliente01.getPedidos().addAll(Arrays.asList(pedido02));
+		cliente02.getPedidos().addAll(Arrays.asList(pedido01));
+		
+		pedidoRepository.saveAll(Arrays.asList(pedido01, pedido02));
+		pagamentoRepository.saveAll(Arrays.asList(pagamento01, pagamento02));
 		
 	}
 
