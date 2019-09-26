@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 
 /**
@@ -40,7 +40,7 @@ public abstract class Pagamento implements Serializable{
 	/**
 	 * Representa o pedido;
 	 */
-	@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn( name = "pedido_id")
 	@MapsId

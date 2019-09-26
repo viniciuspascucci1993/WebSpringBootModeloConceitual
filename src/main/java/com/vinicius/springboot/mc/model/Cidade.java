@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 /**
  * Classe responsável por identificar os atributos de uma cidade..
  * @author Vinicius-PC - Vinicius Torres Pascucci.
@@ -38,7 +36,6 @@ public class Cidade implements Serializable {
 	/**
 	 * Representa UM estado.
 	 */
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn( name = "estado_id")
 	private Estado estado;

@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinicius.springboot.mc.model.enums.TipoCliente;
 
 /**
@@ -55,10 +54,9 @@ public class Cliente implements Serializable{
 	/**
 	 * Representa uma lista de endereços.
 	 */
-	@JsonManagedReference
 	@OneToMany( mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
-	
+
 	/**
 	 * Representa os telefones através de um conjunto de Strings.
 	 */
@@ -69,7 +67,7 @@ public class Cliente implements Serializable{
 	/**
 	 * Representa uma lista de pedidos.
 	 */
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany( mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	

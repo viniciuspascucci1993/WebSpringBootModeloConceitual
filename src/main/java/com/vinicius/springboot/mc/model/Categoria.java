@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 /**
  * Classe responsável por identificar os atributos de uma categoria.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
@@ -39,7 +37,6 @@ public class Categoria implements Serializable{
 	/**
 	 * Representa uma lista de produtos;
 	 */
-	@JsonManagedReference
 	@ManyToMany( mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<Produto>();
 	

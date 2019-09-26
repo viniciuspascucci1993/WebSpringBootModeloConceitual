@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe responsável por identificar os atributos de um endereço.
@@ -64,7 +64,7 @@ public class Endereco implements Serializable{
 	/**
 	 * Representa UM Cliente.
 	 */
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn( name = "cliente_id")
 	private Cliente cliente;

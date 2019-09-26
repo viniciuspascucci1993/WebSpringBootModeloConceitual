@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinicius.springboot.mc.model.enums.SituacaoProduto;
 
@@ -73,7 +72,7 @@ public class Produto implements Serializable {
 	/**
 	 * Representa uma lista de categorias.
 	 */
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable( name = "PRODUTO_CATEGORIA",
 	joinColumns = @JoinColumn( name = "produto_id"), 
