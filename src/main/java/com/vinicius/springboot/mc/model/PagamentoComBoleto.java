@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 
 /**
@@ -21,11 +22,13 @@ public class PagamentoComBoleto extends Pagamento {
 	/**
 	 * Representa a data do vencimento do boleto.
 	 */
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataVencimento;
 	
 	/**
 	 * Representa a data do pagamento do boleto.
 	 */
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataPagamento;
 	
 	/**

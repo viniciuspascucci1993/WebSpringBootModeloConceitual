@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Classe responsável por identificar os atributos de um pedido.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
@@ -37,11 +40,13 @@ public class Pedido implements Serializable{
 	/**
 	 * Representa o horário do pedido realizado.
 	 */
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date horarioPedido;
 	
 	/**
 	 * Representa o pagamento.
 	 */
+	@JsonManagedReference
 	@OneToOne( cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	
@@ -55,6 +60,7 @@ public class Pedido implements Serializable{
 	/**
 	 * Representa o cliente.
 	 */
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn( name = "cliente_id")
 	private Cliente cliente;

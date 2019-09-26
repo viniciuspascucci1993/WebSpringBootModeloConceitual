@@ -122,7 +122,7 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		Pagamento pagamento01 = new PagamentoComCartao(null, SituacaoPagamento.QUITADO, pedido1, 6);
 		pedido1.setPagamento(pagamento01);
 		
-		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.CANCELADO, pedido2, formatoData.parse("30/06/2019 23:59:59"), 
+		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.CANCELADO, pedido2, formatoData.parse("20/06/2019 22:00:00"), 
 					formatoData.parse("22/05/2019 23:59:59"));
 		
 		pedido2.setPagamento(pagamento02);

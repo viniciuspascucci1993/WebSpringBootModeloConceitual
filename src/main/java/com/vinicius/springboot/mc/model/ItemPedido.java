@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Classe responsável por identificar os atributos de um item de pedido.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
@@ -20,6 +22,7 @@ public class ItemPedido implements Serializable{
 	/**
 	 * Representa uma chave composta de OtemPedidoPK
 	 */
+	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -63,6 +66,7 @@ public class ItemPedido implements Serializable{
 	 * Metodo get().
 	 * @return pedido - Object - pedido.
 	 */
+	@JsonIgnore
 	public Pedido getPedido() {
 		return this.id.getPedido();
 	}

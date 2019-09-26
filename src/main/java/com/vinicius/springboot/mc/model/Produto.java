@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinicius.springboot.mc.model.enums.SituacaoProduto;
 
 /**
@@ -65,6 +66,7 @@ public class Produto implements Serializable {
 	/**
 	 * Representa uma coleção de item de pedido.
 	 */
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> items = new HashSet<ItemPedido>();
 	
@@ -108,11 +110,11 @@ public class Produto implements Serializable {
 	 * Metodo para percorrer e adcionar na minha lista de item de pedido o pedido.
 	 * @return List<Pedido> - lista.
 	 */
+	@JsonIgnore
 	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<Pedido>();
 		
 		for (ItemPedido x : items) {
-			
 			lista.add(x.getPedido());
 		}
 		return lista;
