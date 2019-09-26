@@ -13,6 +13,7 @@ import com.vinicius.springboot.mc.model.Cidade;
 import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.Endereco;
 import com.vinicius.springboot.mc.model.Estado;
+import com.vinicius.springboot.mc.model.ItemPedido;
 import com.vinicius.springboot.mc.model.Pagamento;
 import com.vinicius.springboot.mc.model.PagamentoComBoleto;
 import com.vinicius.springboot.mc.model.PagamentoComCartao;
@@ -26,6 +27,7 @@ import com.vinicius.springboot.mc.repositories.CidadeRepository;
 import com.vinicius.springboot.mc.repositories.ClienteRepository;
 import com.vinicius.springboot.mc.repositories.EnderecoRepository;
 import com.vinicius.springboot.mc.repositories.EstadoRepository;
+import com.vinicius.springboot.mc.repositories.ItemPedidoRepository;
 import com.vinicius.springboot.mc.repositories.PagamentoRepository;
 import com.vinicius.springboot.mc.repositories.PedidoRepository;
 import com.vinicius.springboot.mc.repositories.ProdutoRepository;
@@ -57,6 +59,9 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
 	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(WebSpringBootComercialMcApplication.class, args);
 	}
@@ -67,9 +72,9 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		Categoria categoria1 = new Categoria(null, "Informática");
 		Categoria categoria2 = new Categoria(null, "Escritório");
 		
-		Produto produto1 = new Produto(null, "Computador", 2000.00, 10, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL);
-		Produto produto2 = new Produto(null, "Impressora", 800.00, 250, 25.10, "Cor Prata", SituacaoProduto.NAO_DISPONIVEL);
-		Produto produto3 = new Produto(null, "Mouse wireless", 45.00, 100, 15.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto1 = new Produto(null, "Computador", 2000.00, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto2 = new Produto(null, "Impressora", 800.00, 25.10, "Cor Prata", SituacaoProduto.NAO_DISPONIVEL);
+		Produto produto3 = new Produto(null, "Mouse wireless", 45.00, 15.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
 		
 		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3));
 		categoria2.getProdutos().addAll(Arrays.asList(produto2));
@@ -111,23 +116,35 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
-		Pedido pedido01 = new Pedido(null, formatoData.parse("30/09/2019 10:32:55"), endereco01, cliente02);
-		Pedido pedido02 = new Pedido(null, formatoData.parse("10/12/2019 20:34:10"), endereco02, cliente01);
+		Pedido pedido1 = new Pedido(null, formatoData.parse("30/09/2019 10:32:55"), endereco01, cliente02);
+		Pedido pedido2 = new Pedido(null, formatoData.parse("10/12/2019 20:34:10"), endereco02, cliente01);
 		
-		Pagamento pagamento01 = new PagamentoComCartao(null, SituacaoPagamento.QUITADO, pedido01, 6);
-		pedido01.setPagamento(pagamento01);
+		Pagamento pagamento01 = new PagamentoComCartao(null, SituacaoPagamento.QUITADO, pedido1, 6);
+		pedido1.setPagamento(pagamento01);
 		
-		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.CANCELADO, pedido02, formatoData.parse("30/06/2019 23:59:59"), 
+		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.CANCELADO, pedido2, formatoData.parse("30/06/2019 23:59:59"), 
 					formatoData.parse("22/05/2019 23:59:59"));
 		
-		pedido02.setPagamento(pagamento02);
+		pedido2.setPagamento(pagamento02);
 		
-		cliente01.getPedidos().addAll(Arrays.asList(pedido02));
-		cliente02.getPedidos().addAll(Arrays.asList(pedido01));
+		cliente01.getPedidos().addAll(Arrays.asList(pedido2));
+		cliente02.getPedidos().addAll(Arrays.asList(pedido1));
 		
-		pedidoRepository.saveAll(Arrays.asList(pedido01, pedido02));
+		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento01, pagamento02));
 		
+		ItemPedido item1 = new ItemPedido(pedido1, produto1, 0.00, 2, "Computador gamer AOC HyperX");
+		ItemPedido item2 = new ItemPedido(pedido1, produto3, 0.00, 5, "Mouse Wireless Gamer Razer X");
+		ItemPedido item3 = new ItemPedido(pedido2, produto2, 100.00, 1, "Impressora HP Full color");
+		
+		pedido1.getItems().addAll(Arrays.asList(item1, item2));
+		pedido2.getItems().addAll(Arrays.asList(item3));
+		
+		produto1.getItems().addAll(Arrays.asList(item1));
+		produto2.getItems().addAll(Arrays.asList(item3));
+		produto3.getItems().addAll(Arrays.asList(item2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(item1, item2, item3));
 	}
 
 }

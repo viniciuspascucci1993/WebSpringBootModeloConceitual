@@ -2,7 +2,9 @@ package com.vinicius.springboot.mc.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vinicius.springboot.mc.model.enums.SituacaoProduto;
@@ -45,11 +48,6 @@ public class Produto implements Serializable {
 	private double preco;
 	
 	/**
-	 * Representa a quantidade que este produto tem ( Quanto tem no estoque ).
-	 */
-	private Integer quantidade;
-	
-	/**
 	 * Representa o peso do produto.
 	 */
 	private double peso;
@@ -63,6 +61,12 @@ public class Produto implements Serializable {
 	 * Representa se este produto está disponível ou não;
 	 */
 	private Integer disponivel;
+	
+	/**
+	 * Representa uma coleção de item de pedido.
+	 */
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> items = new HashSet<ItemPedido>();
 	
 	/**
 	 * Representa uma lista de categorias.
@@ -90,15 +94,28 @@ public class Produto implements Serializable {
 	 * @param cor - String - cor do produto.
 	 * @param disponivel - boolean - disponivel ou não.
 	 */
-	public Produto(Integer id, String nomeProduto, double preco, Integer quantidade, double peso, String cor, SituacaoProduto disponivel) {
+	public Produto(Integer id, String nomeProduto, double preco, double peso, String cor, SituacaoProduto disponivel) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
 		this.preco = preco;
-		this.quantidade = quantidade;
 		this.peso = peso;
 		this.cor = cor;
 		this.disponivel = disponivel.getCodigoSituacao();
+	}
+	
+	/**
+	 * Metodo para percorrer e adcionar na minha lista de item de pedido o pedido.
+	 * @return List<Pedido> - lista.
+	 */
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<Pedido>();
+		
+		for (ItemPedido x : items) {
+			
+			lista.add(x.getPedido());
+		}
+		return lista;
 	}
 
 	/**
@@ -147,22 +164,6 @@ public class Produto implements Serializable {
 	 */
 	public void setPreco(final double preco) {
 		this.preco = preco;
-	}
-
-	/**
-	 * Metodo get().
-	 * @return quantidade - double - quantidade do produto.
-	 */
-	public Integer getQuantidade() {
-		return this.quantidade;
-	}
-
-	/**
-	 * Metodo set().
-	 * @param quantidade - double - quantidade do produto
-	 */
-	public void setQuantidade(final Integer quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	/**
@@ -228,6 +229,22 @@ public class Produto implements Serializable {
 	public void setCategorias(final List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	/**
+	 * Metodo get().
+	 * @return items - Set<ItemPedido> - items.
+	 */
+	public Set<ItemPedido> getItems() {
+		return this.items;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param items - Set<ItemPedido> - items.
+	 */
+	public void setItems(final Set<ItemPedido> items) {
+		this.items = items;
+	}	
 
 	/**
 	 * Metodo hashCode (Comparar objetos por valor)
