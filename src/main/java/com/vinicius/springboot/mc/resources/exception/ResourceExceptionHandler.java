@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.vinicius.springboot.mc.services.exception.DataIntegrityException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
 /**
@@ -17,7 +18,7 @@ import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 public class ResourceExceptionHandler {
 	
 	/**
-	 * Método responsável por tratar uma mensagem adequada para caso a requisição seja mal sucedida.
+	 * Método responsável por tratar uma mensagem adequada para caso não seja encontrado o objeto.
 	 * @param e - mensagem do erro.
 	 * @param request - requisição HTTP.
 	 * @return ResponseEntity.
@@ -28,6 +29,20 @@ public class ResourceExceptionHandler {
 		StandardError erro = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis()); 
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
+	/**
+	 * Método responsável por tratar uma mensagem adequada para caso a requisição seja mal sucedida.
+	 * @param e - mensagem do erro.
+	 * @param request - requisição HTTP.
+	 * @return ResponseEntity.
+	 */	
+	@ExceptionHandler( DataIntegrityException.class)
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
+		
+		StandardError erro = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis()); 
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 
 }

@@ -69,4 +69,17 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	/**
+	 * Metodo DELETE para excluir uma categoria.
+	 * @param id - Integer - id da categoria.
+	 * @return ResponseEntity<Void>
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> excluirCategoria( @PathVariable Integer id ) {
+		
+		categoriaService.excluir(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
 }

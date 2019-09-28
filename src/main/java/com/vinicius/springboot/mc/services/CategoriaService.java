@@ -3,10 +3,12 @@ package com.vinicius.springboot.mc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.springboot.mc.model.Categoria;
 import com.vinicius.springboot.mc.repositories.CategoriaRepository;
+import com.vinicius.springboot.mc.services.exception.DataIntegrityException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
 /**
@@ -53,5 +55,25 @@ public class CategoriaService {
 		buscar(categoriaObj.getId());
 		
 		return categoriaRepository.save( categoriaObj );
+	}
+	
+	/**
+	 * Metodo para excluir uma categoria.
+	 * @param id - Integer - id da categoria.
+	 */
+	public void excluir(Integer id) {
+		
+		buscar(id);
+		
+		try {
+			categoriaRepository.deleteById(id);
+			
+			
+		} catch (DataIntegrityViolationException e) {
+			
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+		}
+		
+		
 	}
 }
