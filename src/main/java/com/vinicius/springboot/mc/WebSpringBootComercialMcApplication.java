@@ -75,6 +75,11 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		
 		Categoria categoria1 = new Categoria(null, "Informática");
 		Categoria categoria2 = new Categoria(null, "Escritório");
+		Categoria categoria3 = new Categoria(null, "Roupas e Cassacos");
+		Categoria categoria4 = new Categoria(null, "Games, Consoles e Acessorios");
+		Categoria categoria5 = new Categoria(null, "Decoração");
+		Categoria categoria6 = new Categoria(null, "Celulares");
+		Categoria categoria7 = new Categoria(null, "Calçados");
 		
 		Produto produto1 = new Produto(null, "Computador", 2000.00, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL);
 		Produto produto2 = new Produto(null, "Impressora", 800.00, 25.10, "Cor Prata", SituacaoProduto.NAO_DISPONIVEL);
@@ -87,7 +92,7 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
 		produto3.getCategorias().addAll(Arrays.asList(categoria1));
 		
-		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2));
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7 ));
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
 		
 		Estado estado1  = new Estado(null, "Minas-gerais");

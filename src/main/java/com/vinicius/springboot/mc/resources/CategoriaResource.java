@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -97,6 +99,24 @@ public class CategoriaResource {
 		
 		List<CategoriaDTO> listaDto = lista.stream()
 					.map(categoriaObj -> new CategoriaDTO(categoriaObj)).collect(Collectors.toList()); // Assim convertemos uma lista para outta lista
+		
+		return ResponseEntity.ok().body(listaDto);
+	}
+	
+	/**
+	 * Metodo GET para paginação das categorias.
+	 * @return Page
+	 */
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<CategoriaDTO>> encontrarCategoriasPorPaginacao(
+			@RequestParam(value = "page", defaultValue = "0") Integer page, 
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value = "orderBy", defaultValue = "nomeCategoria") String orderBy, 
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+		
+		Page<Categoria> lista = categoriaService.encontrarCategoriasPorPaginacao(page, linesPerPage, orderBy, direction);
+		
+		Page<CategoriaDTO> listaDto = lista.map(categoriaObj -> new CategoriaDTO(categoriaObj)); // Assim convertemos uma lista para outta lista
 		
 		return ResponseEntity.ok().body(listaDto);
 	}

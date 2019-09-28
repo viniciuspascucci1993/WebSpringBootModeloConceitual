@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.springboot.mc.model.Categoria;
@@ -83,5 +86,20 @@ public class CategoriaService {
 		
 		return categoriaRepository.findAll();
 		
+	}
+	
+	/**
+	 * Metodo para paginação.
+	 * @param page - Integwe - quantidade de paginas por paginação.
+	 * @param linesPerPage - Integer - quantidade de linhas por pagina.
+	 * @param orderBy - String - inidica a ordenaçãop (ordenado por).
+	 * @param direction - String - indica a direção (ascendente ou descendente).
+	 * @return pageRequest.
+	 */
+	public Page<Categoria> encontrarCategoriasPorPaginacao( Integer page, Integer linesPerPage, String orderBy, String direction) {
+		
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); 
+		
+		return categoriaRepository.findAll(pageRequest);
 	}
 }
