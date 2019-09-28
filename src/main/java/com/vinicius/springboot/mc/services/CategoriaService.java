@@ -19,6 +19,11 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
+	/**
+	 * Metodo para buscar pelo id uma categoria.
+	 * @param id - Integer - id da categoria.
+	 * @return categoriaObj.
+	 */
 	public Categoria buscar( Integer id )  {
 		
 		Optional<Categoria> categoriaObj = categoriaRepository.findById(id);
@@ -26,9 +31,26 @@ public class CategoriaService {
 				"Categoria não encontrada! Identificador: " + id + " Tipo do objeto: " + Categoria.class.getName()));
 	}
 	
+	/**
+	 * Metodo para inserir uma categoria.
+	 * @param id - Integer - id da categoria.
+	 * @return categoriaObj.
+	 */
 	public Categoria inserir( Categoria categoriaObj ) {
 		
 		categoriaObj.setId( null );
+		
+		return categoriaRepository.save( categoriaObj );
+	}
+	
+	/**
+	 * Metodo para atualizar uma categoria.
+	 * @param id - Integer - id da categoria.
+	 * @return categoriaObj.
+	 */
+	public Categoria atualizar( Categoria categoriaObj) {
+		
+		buscar(categoriaObj.getId());
 		
 		return categoriaRepository.save( categoriaObj );
 	}

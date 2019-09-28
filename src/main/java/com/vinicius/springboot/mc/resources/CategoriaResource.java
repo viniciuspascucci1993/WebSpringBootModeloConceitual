@@ -28,10 +28,10 @@ public class CategoriaResource {
 	/**
 	 * Metodo GET para requisições de consulta
 	 * @param id - Integer - id da categoria.
-	 * @return ResponseEntity.ok
+	 * @return ResponseEntity<Categoria>
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscarCategoria( @PathVariable Integer id ) {
+	public ResponseEntity<Categoria> buscarCategoria( @PathVariable Integer id ) {
 		
 		Categoria categoriaObj = categoriaService.buscar(id);
 		
@@ -52,6 +52,21 @@ public class CategoriaResource {
 					.path("/{id}").buildAndExpand(categoriaObj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+	}
+	
+	/**
+	 * Metodo PUT para atualizar uma nova categoria.
+	 * @param categoriaObj - Object - categoriaObj.
+	 * @return ResponseEntity.created.
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> atualizarCategoria( @RequestBody Categoria categoriaObj, @PathVariable Integer id ) {
+		
+		categoriaObj.setId( id );
+		
+		categoriaObj = categoriaService.atualizar( categoriaObj );
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 }
