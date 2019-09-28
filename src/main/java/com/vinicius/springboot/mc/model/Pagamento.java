@@ -60,7 +60,7 @@ public abstract class Pagamento implements Serializable{
 	public Pagamento(Integer idPagamento, SituacaoPagamento situacaoPagamento, Pedido pedido) {
 		super();
 		this.idPagamento = idPagamento;
-		this.situacaoPagamento = situacaoPagamento.getCodigo();
+		this.situacaoPagamento = (situacaoPagamento == null) ? null : situacaoPagamento.getCodigo();
 		this.pedido = pedido;
 	}
 

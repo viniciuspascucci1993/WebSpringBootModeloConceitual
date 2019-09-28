@@ -55,13 +55,14 @@ public class CategoriaService {
 	 * @param id - Integer - id da categoria.
 	 * @return categoriaObj.
 	 */
-	public Categoria update( Categoria categoriaObj) {
+	public Categoria update( Categoria categoriaObj ) {
 		
-		find(categoriaObj.getId());
+		Categoria newObj = find(categoriaObj.getId());
 		
-		return categoriaRepository.save( categoriaObj );
+		updateData(newObj, categoriaObj);
+		
+		return categoriaRepository.save( newObj );
 	}
-	
 	/**
 	 * Metodo para excluir uma categoria.
 	 * @param id - Integer - id da categoria.
@@ -113,4 +114,16 @@ public class CategoriaService {
 		
 		return new Categoria(objetoDTO.getId(), objetoDTO.getNomeCategoria());
 	}
+	
+	/**
+	 * Metodo para atualizar os dados a partir de um novo obj.
+	 * @param newObj - novo obj DTO.
+	 * @param obj - Categoria - object.
+	 */
+	private void updateData(Categoria newObj, Categoria categoriaObj) {
+		
+		newObj.setNomeCategoria(categoriaObj.getNomeCategoria());
+		
+	}
+
 }

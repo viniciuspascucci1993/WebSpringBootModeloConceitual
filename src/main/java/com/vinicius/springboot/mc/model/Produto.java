@@ -102,7 +102,7 @@ public class Produto implements Serializable {
 		this.preco = preco;
 		this.peso = peso;
 		this.cor = cor;
-		this.disponivel = disponivel.getCodigoSituacao();
+		this.disponivel = (disponivel == null) ? null : disponivel.getCodigoSituacao();
 	}
 	
 	/**
