@@ -32,6 +32,10 @@ import com.vinicius.springboot.mc.repositories.PagamentoRepository;
 import com.vinicius.springboot.mc.repositories.PedidoRepository;
 import com.vinicius.springboot.mc.repositories.ProdutoRepository;
 
+/**
+ * Classe main extendendo CommandLineRunner para instanciarmos nossos modelos e adcionar em uma lista.
+ * @author Vinicius-PC - Vinicius Torres Pascucci.
+ */
 @SpringBootApplication
 public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 
@@ -117,15 +121,22 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		Pedido pedido1 = new Pedido(null, formatoData.parse("30/09/2019 10:32:55"), endereco01, cliente02);
-		Pedido pedido2 = new Pedido(null, formatoData.parse("10/12/2019 20:34:10"), endereco02, cliente01);
+		Pedido pedido2 = new Pedido(null, formatoData.parse("22/05/2019 20:34:10"), endereco02, cliente01);
 		
 		Pagamento pagamento01 = new PagamentoComCartao(null, SituacaoPagamento.QUITADO, pedido1, 6);
 		pedido1.setPagamento(pagamento01);
 		
-		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.CANCELADO, pedido2, formatoData.parse("20/06/2019 22:00:00"), 
-					formatoData.parse("22/05/2019 23:59:59"));
+		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.PENDENTE, pedido2, formatoData.parse("25/05/2019 20:30:55"), 
+					formatoData.parse("24/05/2019 20:30:00"), formatoData.parse("18/05/2019 12:40:10"));
 		
 		pedido2.setPagamento(pagamento02);
+		
+		if (pagamento02.getSituacaoPagamento().equals(SituacaoPagamento.PEDIDO_CANCELADO)) {
+			pagamento02.setSituacaoPagamento(SituacaoPagamento.PEDIDO_CANCELADO);
+		
+		} else {
+			pagamento02.setSituacaoPagamento(SituacaoPagamento.PAGAMENTO_APROVADO);
+		}
 		
 		cliente01.getPedidos().addAll(Arrays.asList(pedido2));
 		cliente02.getPedidos().addAll(Arrays.asList(pedido1));

@@ -8,7 +8,8 @@ public enum SituacaoPagamento {
 	
 	PENDENTE(1, "Pendente"),
 	QUITADO(2, "Quitado"),
-	CANCELADO(3, "Cancelado");
+	PEDIDO_CANCELADO(3, "Cancelado"),
+	PAGAMENTO_APROVADO(5, "Pagamento Aprovado");
 	
 	/**
 	 * Representa o codigo.

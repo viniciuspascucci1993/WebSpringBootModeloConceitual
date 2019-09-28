@@ -11,7 +11,7 @@ import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.services.ClienteService;
 
 /**
- * Classe CategoriaResource que representa os nossos serviços REST.
+ * Classe ClienteResource que representa os nossos serviços REST.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @RestController

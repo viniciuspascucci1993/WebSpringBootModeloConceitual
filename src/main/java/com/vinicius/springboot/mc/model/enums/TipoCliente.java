@@ -1,7 +1,7 @@
 package com.vinicius.springboot.mc.model.enums;
 
 /**
- * Enum responsável por enumerar um tipo de Cliente (Administrador, funcionario, terceiros...etc).
+ * Enum responsável por enumerar um tipo de Cliente (Pessoa física ou Pessoa Jurídica).
  * @author Vinicius-PC - Vinicius Torres Pascucci
  */
 public enum TipoCliente {

@@ -32,6 +32,12 @@ public class PagamentoComBoleto extends Pagamento {
 	private Date dataPagamento;
 	
 	/**
+	 * Representa a data da emissão do boleto.
+	 */
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date dataEmissaoBoleto;
+	
+	/**
 	 * Construtor vazio.
 	 */
 	public PagamentoComBoleto() { }
@@ -43,9 +49,12 @@ public class PagamentoComBoleto extends Pagamento {
 	 * @param pedido - Object - Pedido
 	 * @param dataVencimento - Date - data do vencimento do boleto.
 	 * @param dataPagamento - Date - Data do pagamento do boleto.
+	 * @param dataEmissaoBoleto - Date - Data da emissão do boleto.
 	 */
-	public PagamentoComBoleto(Integer idPagamento, SituacaoPagamento situacaoPagamento, Pedido pedido, Date dataVencimento, Date dataPagamento) {
+	public PagamentoComBoleto(Integer idPagamento, SituacaoPagamento situacaoPagamento, Pedido pedido, Date dataVencimento, Date dataPagamento,
+			Date dataEmissaoBoleto) {
 		super(idPagamento, situacaoPagamento, pedido);
+		this.dataEmissaoBoleto = dataEmissaoBoleto;
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;
 	}
@@ -82,8 +91,20 @@ public class PagamentoComBoleto extends Pagamento {
 		this.dataPagamento = dataPagamento;
 	}
 
-	
-	
-	
+	/**
+	 * Metodo get().
+	 * @return dataEmissaoBoleto - Date - data que foi emitido o boleto.
+	 */
+	public Date getDataEmissaoBoleto() {
+		return this.dataEmissaoBoleto;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param dataEmissaoBoleto - Date - data que foi emitido o boleto.
+	 */
+	public void setDataEmissaoBoleto(final Date dataEmissaoBoleto) {
+		this.dataEmissaoBoleto = dataEmissaoBoleto;
+	}
 	
 }

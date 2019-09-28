@@ -9,7 +9,6 @@ import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.repositories.ClienteRepository;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
-
 /**
  * Service responsável por nossas operações de CRUD.
  * @author Vinicius-PC - Vinicius Torres Pascucci.

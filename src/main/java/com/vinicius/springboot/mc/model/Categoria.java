@@ -47,7 +47,7 @@ public class Categoria implements Serializable{
 
 	/**
 	 * Contrutor usando argumentos.
-	 * @param id - Integer.
+	 * @param id - Integer - identificador da categoria.
 	 * @param nomeCategoria - String.
 	 */
 	public Categoria(Integer id, String nomeCategoria) {
