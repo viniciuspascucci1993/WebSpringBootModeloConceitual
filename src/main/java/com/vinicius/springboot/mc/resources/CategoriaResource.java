@@ -73,7 +73,7 @@ public class CategoriaResource {
 		
 		Categoria objeto = categoriaService.convertFromDTO(objDto);
 		
-		objeto.setId( id );
+		objeto.setId( id ); 
 		
 		objeto = categoriaService.update( objeto );
 		
