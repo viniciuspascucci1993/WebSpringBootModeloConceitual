@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @Entity
-public class Categoria implements Serializable{
+public class Categoria implements Serializable {
 
 	/**
 	 * Serial version UID.

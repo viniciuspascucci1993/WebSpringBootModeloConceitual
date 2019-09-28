@@ -1,6 +1,8 @@
 package com.vinicius.springboot.mc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.vinicius.springboot.mc.dto.CategoriaDTO;
 import com.vinicius.springboot.mc.model.Categoria;
 import com.vinicius.springboot.mc.services.CategoriaService;
 
@@ -82,4 +85,19 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+
+	/**
+	 * Metodo GET para listar todas as categorias.
+	 * @return ResponseEntity<Categoria>
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> buscarTodasCategorias() {
+		
+		List<Categoria> lista = categoriaService.buscarTodasCategorias();
+		
+		List<CategoriaDTO> listaDto = lista.stream()
+					.map(categoriaObj -> new CategoriaDTO(categoriaObj)).collect(Collectors.toList()); // Assim convertemos uma lista para outta lista
+		
+		return ResponseEntity.ok().body(listaDto);
+	}
 }
