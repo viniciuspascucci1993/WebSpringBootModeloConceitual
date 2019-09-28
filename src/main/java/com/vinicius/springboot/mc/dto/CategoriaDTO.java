@@ -11,6 +11,10 @@ import org.hibernate.validator.constraints.Length;
 
 import com.vinicius.springboot.mc.model.Categoria;
 
+/**
+ * Classe responsável por mandar para a requisição apenas os atributos dos quais precisamos.
+ * @author Vinicius-PC - Vinicius Torres Pascucci.
+ */
 public class CategoriaDTO implements Serializable {
 
 	/**
@@ -36,7 +40,7 @@ public class CategoriaDTO implements Serializable {
 	
 	/**
 	 * Construtor passando um Object Categoria.
-	 * @param categoriaoBK
+	 * @param categoriaObj
 	 */
 	public CategoriaDTO(Categoria categoriaObj) {
 		id = categoriaObj.getId();

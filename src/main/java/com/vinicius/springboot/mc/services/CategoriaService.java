@@ -31,7 +31,7 @@ public class CategoriaService {
 	 * @param id - Integer - id da categoria.
 	 * @return categoriaObj.
 	 */
-	public Categoria buscar( Integer id )  {
+	public Categoria find( Integer id )  {
 		
 		Optional<Categoria> categoriaObj = categoriaRepository.findById(id);
 		return categoriaObj.orElseThrow(() -> new ObjectNotFoundException (
@@ -57,7 +57,7 @@ public class CategoriaService {
 	 */
 	public Categoria update( Categoria categoriaObj) {
 		
-		buscar(categoriaObj.getId());
+		find(categoriaObj.getId());
 		
 		return categoriaRepository.save( categoriaObj );
 	}
@@ -66,9 +66,9 @@ public class CategoriaService {
 	 * Metodo para excluir uma categoria.
 	 * @param id - Integer - id da categoria.
 	 */
-	public void excluir(Integer id) {
+	public void delete(Integer id) {
 		
-		buscar(id);
+		find(id);
 		
 		try {
 			categoriaRepository.deleteById(id);
@@ -97,7 +97,7 @@ public class CategoriaService {
 	 * @param direction - String - indica a direção (ascendente ou descendente).
 	 * @return pageRequest.
 	 */
-	public Page<Categoria> encontrarCategoriasPorPaginacao( Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public Page<Categoria> findPage( Integer page, Integer linesPerPage, String orderBy, String direction) {
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); 
 		

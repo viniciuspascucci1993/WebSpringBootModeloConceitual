@@ -30,7 +30,7 @@ import com.vinicius.springboot.mc.services.CategoriaService;
 public class CategoriaResource {
 
 	@Autowired
-	private CategoriaService categoriaService;
+	private CategoriaService service;
 	
 	/**
 	 * Metodo GET para requisições de consulta
@@ -38,9 +38,9 @@ public class CategoriaResource {
 	 * @return ResponseEntity<Categoria>
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Categoria> buscarCategoria( @PathVariable Integer id ) {
+	public ResponseEntity<Categoria> find( @PathVariable Integer id ) {
 		
-		Categoria categoriaObj = categoriaService.buscar(id);
+		Categoria categoriaObj = service.find(id);
 		
 		return ResponseEntity.ok().body(categoriaObj);
 	}
@@ -53,9 +53,9 @@ public class CategoriaResource {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert( @Valid @RequestBody CategoriaDTO objDto ) {
 		
-		Categoria objeto = categoriaService.convertFromDTO(objDto);
+		Categoria objeto = service.convertFromDTO(objDto);
 		
-		objeto = categoriaService.insert( objeto );
+		objeto = service.insert( objeto );
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(objeto.getId()).toUri();
@@ -71,11 +71,11 @@ public class CategoriaResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update( @Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id ) {
 		
-		Categoria objeto = categoriaService.convertFromDTO(objDto);
+		Categoria objeto = service.convertFromDTO(objDto);
 		
 		objeto.setId( id ); 
 		
-		objeto = categoriaService.update( objeto );
+		objeto = service.update( objeto );
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -86,9 +86,9 @@ public class CategoriaResource {
 	 * @return ResponseEntity<Void>
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> excluirCategoria( @PathVariable Integer id ) {
+	public ResponseEntity<Void> delete( @PathVariable Integer id ) {
 		
-		categoriaService.excluir(id);
+		service.delete(id);
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -101,7 +101,7 @@ public class CategoriaResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> buscarTodasCategorias() {
 		
-		List<Categoria> lista = categoriaService.buscarTodasCategorias();
+		List<Categoria> lista = service.buscarTodasCategorias();
 		
 		List<CategoriaDTO> listaDto = lista.stream()
 					.map(categoriaObj -> new CategoriaDTO(categoriaObj)).collect(Collectors.toList()); // Assim convertemos uma lista para outta lista
@@ -120,7 +120,7 @@ public class CategoriaResource {
 			@RequestParam(value = "orderBy", defaultValue = "nomeCategoria") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		
-		Page<Categoria> lista = categoriaService.encontrarCategoriasPorPaginacao(page, linesPerPage, orderBy, direction);
+		Page<Categoria> lista = service.findPage(page, linesPerPage, orderBy, direction);
 		
 		Page<CategoriaDTO> listaDto = lista.map(categoriaObj -> new CategoriaDTO(categoriaObj)); // Assim convertemos uma lista para outta lista
 		

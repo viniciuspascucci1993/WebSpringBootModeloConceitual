@@ -52,6 +52,11 @@ public class Cliente implements Serializable{
 	private String cpfCnpj;
 	
 	/**
+	 * Representa o tipo enumerado do cliente.
+	 */
+	private Integer tipoCliente;	
+	
+	/**
 	 * Representa uma lista de endereços.
 	 */
 	@OneToMany( mappedBy = "cliente")
@@ -71,10 +76,7 @@ public class Cliente implements Serializable{
 	@OneToMany( mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
-	/**
-	 * Representa o tipo enumerado do cliente.
-	 */
-	private Integer tipoCliente;
+
 	
 	/**
 	 * Construtor vazio.
@@ -95,7 +97,7 @@ public class Cliente implements Serializable{
 		this.nomeCliente = nomeCliente;
 		this.email = email;
 		this.cpfCnpj = cpfCnpj;
-		this.tipoCliente = tipoCliente.getCodigo();
+		this.tipoCliente = ( tipoCliente == null ) ? null : tipoCliente.getCodigo(); // função ternária
 	}
 	
 	/**
