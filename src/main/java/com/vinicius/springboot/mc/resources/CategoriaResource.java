@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -49,12 +51,14 @@ public class CategoriaResource {
 	 * @return ResponseEntity.created.
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> inserirCategoria( @RequestBody Categoria categoriaObj ) {
+	public ResponseEntity<Void> insert( @Valid @RequestBody CategoriaDTO objDto ) {
 		
-		categoriaObj = categoriaService.inserir( categoriaObj );
+		Categoria objeto = categoriaService.convertFromDTO(objDto);
+		
+		objeto = categoriaService.insert( objeto );
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-					.path("/{id}").buildAndExpand(categoriaObj.getId()).toUri();
+					.path("/{id}").buildAndExpand(objeto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
 	}
@@ -65,11 +69,13 @@ public class CategoriaResource {
 	 * @return ResponseEntity.created.
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizarCategoria( @RequestBody Categoria categoriaObj, @PathVariable Integer id ) {
+	public ResponseEntity<Void> update( @Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id ) {
 		
-		categoriaObj.setId( id );
+		Categoria objeto = categoriaService.convertFromDTO(objDto);
 		
-		categoriaObj = categoriaService.atualizar( categoriaObj );
+		objeto.setId( id );
+		
+		objeto = categoriaService.update( objeto );
 		
 		return ResponseEntity.noContent().build();
 	}

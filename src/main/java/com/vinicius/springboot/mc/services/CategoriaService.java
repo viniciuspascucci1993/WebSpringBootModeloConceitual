@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.vinicius.springboot.mc.dto.CategoriaDTO;
 import com.vinicius.springboot.mc.model.Categoria;
 import com.vinicius.springboot.mc.repositories.CategoriaRepository;
 import com.vinicius.springboot.mc.services.exception.DataIntegrityException;
@@ -42,7 +43,7 @@ public class CategoriaService {
 	 * @param id - Integer - id da categoria.
 	 * @return categoriaObj.
 	 */
-	public Categoria inserir( Categoria categoriaObj ) {
+	public Categoria insert( Categoria categoriaObj ) {
 		
 		categoriaObj.setId( null );
 		
@@ -54,7 +55,7 @@ public class CategoriaService {
 	 * @param id - Integer - id da categoria.
 	 * @return categoriaObj.
 	 */
-	public Categoria atualizar( Categoria categoriaObj) {
+	public Categoria update( Categoria categoriaObj) {
 		
 		buscar(categoriaObj.getId());
 		
@@ -101,5 +102,15 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); 
 		
 		return categoriaRepository.findAll(pageRequest);
+	}
+	
+	/**
+	 * Metodo para converter para DTO.
+	 * @param objetoDTO - CategoriaDTO.
+	 * @return Categoria object.
+	 */
+	public Categoria convertFromDTO( CategoriaDTO objetoDTO) {
+		
+		return new Categoria(objetoDTO.getId(), objetoDTO.getNomeCategoria());
 	}
 }
