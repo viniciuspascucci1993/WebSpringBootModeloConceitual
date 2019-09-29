@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vinicius.springboot.mc.dto.ClienteDTO;
 import com.vinicius.springboot.mc.dto.ClienteNewDTO;
@@ -46,6 +47,7 @@ public class ClienteService {
 	 * @param id - Integer - id do cliente.
 	 * @return clienteObj.
 	 */
+	@Transactional
 	public Cliente insert( Cliente clienteObj ) {
 		
 		clienteObj.setId( null );
