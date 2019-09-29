@@ -2,52 +2,52 @@ package com.vinicius.springboot.mc.services.validations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerMapping;
 
-import com.vinicius.springboot.mc.dto.ClienteNewDTO;
+import com.vinicius.springboot.mc.dto.ClienteDTO;
 import com.vinicius.springboot.mc.model.Cliente;
-import com.vinicius.springboot.mc.model.enums.TipoCliente;
 import com.vinicius.springboot.mc.repositories.ClienteRepository;
 import com.vinicius.springboot.mc.resources.exception.FieldMessage;
-import com.vinicius.springboot.mc.validation.util.CpfCnpjUtil;
 
 /**
  * Classe responsável por nosso validador de cliente insert.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
-public class ValidatiorClienteInsert implements ConstraintValidator<ValidationClienteInsert, ClienteNewDTO>{
+public class ValidatiorClienteUpdate implements ConstraintValidator<ValidationClienteUpdate, ClienteDTO>{
+	
+	@Autowired
+	private HttpServletRequest request;
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
-
-	@Override
-	public void initialize( ValidationClienteInsert nome ) { }
 	
 	@Override
-	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
+	public void initialize( ValidationClienteUpdate nome ) { }
+	
+	@Override
+	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+		
+		// Dessa forma pegamos o URI do endPoint. Ex cliente/1
+		@SuppressWarnings("unchecked")
+		Map<String, String> map = ( Map<String, String> ) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+		
+		Integer uriId = Integer.parseInt(map.get("id"));
 		
 		List<FieldMessage> lista = new ArrayList<FieldMessage>();
 		
 		// Aqui iniciará as validações
-		// Valida CPF
-		if (objDto.getTipoCliente().equals(TipoCliente.PESSOA_FISICA.getCodigo()) && !CpfCnpjUtil.isValidCpf(objDto.getCpfCnpj())) {
-			lista.add(new FieldMessage("cpfCnpj", "CPF Inválido"));
-		}
-		
-		// Valida CNPJ
-		if (objDto.getTipoCliente().equals(TipoCliente.PESSOA_JURIDICA.getCodigo()) && !CpfCnpjUtil.isValidCnpj(objDto.getCpfCnpj())) {
-			lista.add(new FieldMessage("cpfCnpj", "CNPJ Inválido"));
-		}
-		
-		// Valida E-mail repetido na inserção do cliente.
+		// Valida E-mail repetido na atualização do cliente.
 		Cliente aux = clienteRepository.findByEmail(objDto.getEmail());
 		
-		if (aux != null) {
-			lista.add(new FieldMessage("email", "O e-mail que você informou ja existe."));
+		if (aux != null && !aux.getId().equals(uriId)) {
+			lista.add(new FieldMessage("email", "Este e-mail ja está sendo usado por outro usuario."));
 		}
 		
 		// for para percorrer a lista correspondente e adcionar os erros nela.

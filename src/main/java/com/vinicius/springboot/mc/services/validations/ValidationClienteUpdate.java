@@ -9,14 +9,14 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Anotação customizada para anotar no topo da nossa classe de modelo para validações como CPF e/ou CNPJ na inserção do cliente.
+ * Anotação customizada para anotar no topo da nossa classe de modelo para validações como CPF e/ou CNPJ na atualização do cliente.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  *
  */
-@Constraint(validatedBy = ValidatiorClienteInsert.class) 
+@Constraint(validatedBy = ValidatiorClienteUpdate.class) 
 @Target({ ElementType.TYPE }) 
 @Retention(RetentionPolicy.RUNTIME) 
-public @interface ValidationClienteInsert {
+public @interface ValidationClienteUpdate {
 
 	String message() default "Erro de validação"; 
 	

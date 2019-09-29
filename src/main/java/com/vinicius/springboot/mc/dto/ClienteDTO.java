@@ -8,11 +8,13 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.vinicius.springboot.mc.model.Cliente;
+import com.vinicius.springboot.mc.services.validations.ValidationClienteUpdate;
 
 /**
  * Classe responsável por mandar para a requisição apenas os atributos dos quais precisamos.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@ValidationClienteUpdate
 public class ClienteDTO implements Serializable {
 
 	/**
