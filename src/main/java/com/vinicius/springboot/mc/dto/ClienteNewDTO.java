@@ -2,10 +2,18 @@ package com.vinicius.springboot.mc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.vinicius.springboot.mc.services.validations.ValidationClienteInsert;
+
 /**
  * Classe responsável por mandar para a requisição apenas os atributos dos quais precisamos.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@ValidationClienteInsert
 public class ClienteNewDTO implements Serializable {
 
 	/**
@@ -16,16 +24,21 @@ public class ClienteNewDTO implements Serializable {
 	/**
 	 * Representa o nome do cliente
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 80, message = "O Tamanho deve ser entre 5 e 80 caracteres")
 	private String nomeCliente;
 	
 	/**
 	 * Representa o e-mail do cliente.
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	/**
 	 * Representa o CPF e/ou CNPJ do cliente
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpfCnpj;
 	
 	/**
@@ -36,11 +49,13 @@ public class ClienteNewDTO implements Serializable {
 	/**
 	 * Representa o logradouro do endereço.
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String logradouro;
 	
 	/**
 	 * Representa o número do endereço.
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String numero;
 	
 	/**
@@ -56,16 +71,19 @@ public class ClienteNewDTO implements Serializable {
 	/**
 	 * Representa o CEP do endereço.
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cep;
 	
 	/**
 	 * Representa o telefone residencial.
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefoneResidencial;
 	
 	/**
 	 * Representa o telefone comercial.
 	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefoneComecial;
 	
 	/**

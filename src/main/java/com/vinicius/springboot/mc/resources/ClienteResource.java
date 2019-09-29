@@ -33,6 +33,11 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
+	/**
+	 * Metodo GET para requisições de consulta
+	 * @param id - Integer - id do cliente.
+	 * @return ResponseEntity<Cliente>
+	 */	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> buscarCliente( @PathVariable Integer id ) {
 		

@@ -21,6 +21,11 @@ public class PedidoResource {
 	@Autowired
 	private PedidoService pedidoService;
 	
+	/**
+	 * Metodo GET para requisições de consulta
+	 * @param id - Integer - id do pedido.
+	 * @return ResponseEntity<Pedido>
+	 */	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Pedido> buscarPedido( @PathVariable Integer id ) {
 		

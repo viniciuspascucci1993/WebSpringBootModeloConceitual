@@ -35,6 +35,11 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
+	/**
+	 * Metodo para buscar pelo id do cliente.
+	 * @param id - Integer - id do cliente.
+	 * @return Cliente.
+	 */	
 	public Cliente find( Integer id )  {
 		
 		Optional<Cliente> clienteObj = clienteRepository.findById(id);

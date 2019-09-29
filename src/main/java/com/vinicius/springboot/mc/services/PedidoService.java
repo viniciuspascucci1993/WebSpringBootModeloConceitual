@@ -19,6 +19,11 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
+	/**
+	 * Metodo para buscar pelo id do pedido.
+	 * @param id - Integer - id do pedido.
+	 * @return Pedido.
+	 */		
 	public Pedido buscar( Integer id )  {
 		
 		Optional<Pedido> pedidoObj = pedidoRepository.findById(id);
