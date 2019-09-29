@@ -33,7 +33,7 @@ public class ProdutoService {
 	 * @param id - Integer - id do pedido.
 	 * @return Produto.
 	 */		
-	public Produto buscar( Integer id )  {
+	public Produto find( Integer id )  {
 		
 		Optional<Produto> produtoObj = produtoRepository.findById(id);
 		return produtoObj.orElseThrow(() -> new ObjectNotFoundException (

@@ -86,12 +86,28 @@ public class ItemPedido implements Serializable{
 	}
 	
 	/**
+	 * Metodo set().
+	 * @param pedido - void - pedido.
+	 */
+	public void setPedido(final Pedido pedido) {
+		id.setPedido(pedido);
+	}
+	
+	/**
 	 * Metodo get().
 	 * @return produto - Object - produto.
 	 */	
 	public Produto getProduto() {
 		return this.id.getProduto();
 	}
+	
+	/**
+	 * Metodo set().
+	 * @param produto - void - produto.
+	 */
+	public void setProduto(final Produto produto) {
+		id.setProduto(produto);
+	}	
 
 	/**
 	 * Metodo get().

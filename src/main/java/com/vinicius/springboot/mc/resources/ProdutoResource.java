@@ -35,7 +35,7 @@ public class ProdutoResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Produto> buscarProduto( @PathVariable Integer id ) {
 		
-		Produto produtoiaObj = service.buscar(id);
+		Produto produtoiaObj = service.find(id);
 		
 		return ResponseEntity.ok().body(produtoiaObj);
 		

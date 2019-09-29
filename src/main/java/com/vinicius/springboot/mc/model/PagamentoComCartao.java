@@ -2,6 +2,7 @@ package com.vinicius.springboot.mc.model;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 
 /**
@@ -9,6 +10,7 @@ import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
 
 	/**

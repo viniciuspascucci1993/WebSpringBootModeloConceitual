@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 
 /**
@@ -19,6 +20,7 @@ import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
  */
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") 
 public abstract class Pagamento implements Serializable{
 
 	/**
