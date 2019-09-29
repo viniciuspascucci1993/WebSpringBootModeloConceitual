@@ -11,8 +11,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.springboot.mc.dto.ClienteDTO;
+import com.vinicius.springboot.mc.dto.ClienteNewDTO;
+import com.vinicius.springboot.mc.model.Cidade;
 import com.vinicius.springboot.mc.model.Cliente;
+import com.vinicius.springboot.mc.model.Endereco;
+import com.vinicius.springboot.mc.model.enums.TipoCliente;
 import com.vinicius.springboot.mc.repositories.ClienteRepository;
+import com.vinicius.springboot.mc.repositories.EnderecoRepository;
 import com.vinicius.springboot.mc.services.exception.DataIntegrityException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
@@ -26,11 +31,30 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	public Cliente find( Integer id )  {
 		
 		Optional<Cliente> clienteObj = clienteRepository.findById(id);
 		return clienteObj.orElseThrow(() -> new ObjectNotFoundException (
 				"Cliente não encontrado! Identificador: " + id + " Tipo do objeto: " + Cliente.class.getName()));
+	}
+	
+	/**
+	 * Metodo para inserir um cliente..
+	 * @param id - Integer - id do cliente.
+	 * @return clienteObj.
+	 */
+	public Cliente insert( Cliente clienteObj ) {
+		
+		clienteObj.setId( null );
+		
+		clienteObj = clienteRepository.save( clienteObj );
+		
+		enderecoRepository.saveAll(clienteObj.getEnderecos());
+		
+		return clienteObj;
 	}
 	
 	/**
@@ -97,6 +121,35 @@ public class ClienteService {
 	public Cliente convertFromDTO( ClienteDTO objetoDTO) {
 		
 		return new Cliente(objetoDTO.getId(), objetoDTO.getNomeCliente(), objetoDTO.getEmail(), null, null);
+	}
+	
+	/**
+	 * Metodo para converter para newDTO.
+	 * @param objetoDTO - ClienteNewDTO.
+	 * @return Cliente object.
+	 */
+	public Cliente convertFromDTO( ClienteNewDTO objetoDTO) {
+		
+		Cliente cliente = new Cliente(null, objetoDTO.getNomeCliente(), objetoDTO.getEmail(), objetoDTO.getCpfCnpj(), TipoCliente.toEnum(objetoDTO.getTipoCliente()));
+		
+		Cidade cidade = new Cidade(objetoDTO.getCidadeId(), null, null );
+		
+		Endereco endereco = new Endereco(null, objetoDTO.getLogradouro(), objetoDTO.getNumero(), objetoDTO.getComplemento(), objetoDTO.getBairro(), objetoDTO.getCep(), cliente, cidade);
+		
+		cliente.getEnderecos().add(endereco);
+		
+		cliente.getTelefones().add(objetoDTO.getTelefoneResidencial());
+		
+		if (objetoDTO.getTelefoneComecial() != null) {
+			cliente.getTelefones().add(objetoDTO.getTelefoneComecial());
+		}
+		
+		if (objetoDTO.getCelular() != null) {
+			cliente.getTelefones().add(objetoDTO.getCelular());
+		}
+		
+		return cliente;
+		 
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package com.vinicius.springboot.mc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vinicius.springboot.mc.dto.ClienteDTO;
+import com.vinicius.springboot.mc.dto.ClienteNewDTO;
 import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.services.ClienteService;
 
@@ -28,15 +31,33 @@ import com.vinicius.springboot.mc.services.ClienteService;
 public class ClienteResource {
 
 	@Autowired
-	private ClienteService clienteService;
+	private ClienteService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> buscarCliente( @PathVariable Integer id ) {
 		
-		Cliente clienteObj = clienteService.find(id);
+		Cliente clienteObj = service.find(id);
 		
 		return ResponseEntity.ok().body(clienteObj);
 		
+	}
+	
+	/**
+	 * Metodo POST para inserir um cliente.
+	 * @param clienteObj - Object - clienteaObj.
+	 * @return ResponseEntity.created.
+	 */
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert( @Valid @RequestBody ClienteNewDTO objDto ) {
+		
+		Cliente objeto = service.convertFromDTO(objDto);
+		
+		objeto = service.insert( objeto );
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+					.path("/{id}").buildAndExpand(objeto.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
 	}
 	
 	/**
@@ -47,11 +68,11 @@ public class ClienteResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update( @Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id ) {
 		
-		Cliente objeto = clienteService.convertFromDTO(objDto);
+		Cliente objeto = service.convertFromDTO(objDto);
 		
 		objeto.setId( id ); 
 		
-		objeto = clienteService.update( objeto );
+		objeto = service.update( objeto );
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -64,7 +85,7 @@ public class ClienteResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete( @PathVariable Integer id ) {
 		
-		clienteService.excluir(id);
+		service.excluir(id);
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -77,7 +98,7 @@ public class ClienteResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		
-		List<Cliente> lista = clienteService.findAll();
+		List<Cliente> lista = service.findAll();
 		
 		List<ClienteDTO> listaDto = lista.stream()
 					.map(categoriaObj -> new ClienteDTO(categoriaObj)).collect(Collectors.toList()); // Assim convertemos uma lista para outta lista
@@ -96,7 +117,7 @@ public class ClienteResource {
 			@RequestParam(value = "orderBy", defaultValue = "nomeCliente") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		
-		Page<Cliente> lista = clienteService.findPage(page, linesPerPage, orderBy, direction);
+		Page<Cliente> lista = service.findPage(page, linesPerPage, orderBy, direction);
 		
 		Page<ClienteDTO> listaDto = lista.map(categoriaObj -> new ClienteDTO(categoriaObj)); // Assim convertemos uma lista para outta lista
 		
