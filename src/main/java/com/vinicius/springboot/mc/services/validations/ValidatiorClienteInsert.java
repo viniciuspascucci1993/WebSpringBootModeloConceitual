@@ -6,8 +6,12 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vinicius.springboot.mc.dto.ClienteNewDTO;
+import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.enums.TipoCliente;
+import com.vinicius.springboot.mc.repositories.ClienteRepository;
 import com.vinicius.springboot.mc.resources.exception.FieldMessage;
 import com.vinicius.springboot.mc.validation.util.CpfCnpjUtil;
 
@@ -16,6 +20,9 @@ import com.vinicius.springboot.mc.validation.util.CpfCnpjUtil;
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 public class ValidatiorClienteInsert implements ConstraintValidator<ValidationClienteInsert, ClienteNewDTO>{
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@Override
 	public void initialize( ValidationClienteInsert nome ) { }
@@ -26,12 +33,21 @@ public class ValidatiorClienteInsert implements ConstraintValidator<ValidationCl
 		List<FieldMessage> lista = new ArrayList<FieldMessage>();
 		
 		// Aqui iniciará as validações
+		// Valida CPF
 		if (objDto.getTipoCliente().equals(TipoCliente.PESSOA_FISICA.getCodigo()) && !CpfCnpjUtil.isValidCpf(objDto.getCpfCnpj())) {
 			lista.add(new FieldMessage("cpfCnpj", "CPF Inválido"));
 		}
 		
+		// Valida CNPJ
 		if (objDto.getTipoCliente().equals(TipoCliente.PESSOA_JURIDICA.getCodigo()) && !CpfCnpjUtil.isValidCnpj(objDto.getCpfCnpj())) {
 			lista.add(new FieldMessage("cpfCnpj", "CNPJ Inválido"));
+		}
+		
+		// Valida E-mail repetido.
+		Cliente aux = clienteRepository.findByEmail(objDto.getEmail());
+		
+		if (aux != null) {
+			lista.add(new FieldMessage("email", "Esse e-mail já existe"));
 		}
 		
 		// for para percorrer a lista correspondente e adcionar os erros nela.
