@@ -171,9 +171,9 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento01, pagamento02));
 		
-		ItemPedido item1 = new ItemPedido(pedido1, produto1, 0.00, 2, "Computador gamer AOC HyperX");
-		ItemPedido item2 = new ItemPedido(pedido1, produto3, 0.00, 5, "Mouse Wireless Gamer Razer X");
-		ItemPedido item3 = new ItemPedido(pedido2, produto2, 100.00, 1, "Impressora HP Full color");
+		ItemPedido item1 = new ItemPedido(pedido1, produto1, 0.00, 2000.00, 2, "Computador gamer AOC HyperX");
+		ItemPedido item2 = new ItemPedido(pedido1, produto1, 0.00, 80.00, 5, "Mouse Wireless Gamer Razer X");
+		ItemPedido item3 = new ItemPedido(pedido1, produto1, 100.00, 800.00, 1, "Impressora HP Full color");
 		
 		pedido1.getItems().addAll(Arrays.asList(item1, item2));
 		pedido2.getItems().addAll(Arrays.asList(item3));

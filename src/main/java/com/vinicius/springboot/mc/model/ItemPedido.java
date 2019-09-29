@@ -37,6 +37,11 @@ public class ItemPedido implements Serializable{
 	private Integer quantidade;
 	
 	/**
+	 * Representa o preço do item de pedido.
+	 */
+	private Double preco;
+	
+	/**
 	 * Representa a descriçao do item de pedido.
 	 */
 	private String descricaoItemPedido;
@@ -53,13 +58,22 @@ public class ItemPedido implements Serializable{
 	 * @param quantidade - Integer - quantidade.
 	 * @param descricaoItemPedido - String - descrição item.
 	 */
-	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, String descricaoItemPedido) {
+	public ItemPedido(Pedido pedido, Produto produto, Double descotno, Double preco, Integer quantidade, String descricaoItemPedido) {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto); 
-		this.desconto = desconto;
+		this.desconto = descotno;
+		this.preco = preco;
 		this.quantidade = quantidade;
 		this.descricaoItemPedido = descricaoItemPedido;
+	}
+	
+	/**
+	 * Metodo get()
+	 * @return subTotal - diuble - retorna o subTotal dos items.
+	 */
+	public double getSubTotal() {
+		return ( preco - desconto ) * quantidade;
 	}
 	
 	/**
@@ -111,6 +125,22 @@ public class ItemPedido implements Serializable{
 		this.desconto = desconto;
 	}
 
+	/**
+	 * Metodo get().
+	 * @return preco - double - preço do produto.
+	 */
+	public double getPreco() {
+		return this.preco;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param preco - double - preço do produto.
+	 */
+	public void setPreco(final double preco) {
+		this.preco = preco;
+	}	
+	
 	/**
 	 * Metodo get().
 	 * @return quantidade - Integer - quantidade do item.

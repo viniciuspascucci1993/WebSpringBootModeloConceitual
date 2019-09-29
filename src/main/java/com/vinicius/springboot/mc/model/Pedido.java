@@ -89,6 +89,18 @@ public class Pedido implements Serializable{
 		this.enderecoDeEntrega = enderecoDeEntrega;
 		this.cliente = cliente;
 	}
+	
+	/**
+	 * Metodo get().
+	 * @return getValorTotal - double - retorna a somatória dos items.
+	 */
+	public double getValorTotal() {
+		double soma = 0;
+		for (ItemPedido itemPedido : items) {
+			soma = soma + itemPedido.getSubTotal();
+		}
+		return soma;
+	}
 
 	/**
 	 * Metodo get()
