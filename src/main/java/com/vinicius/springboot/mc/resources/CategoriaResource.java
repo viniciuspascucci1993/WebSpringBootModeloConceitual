@@ -111,7 +111,7 @@ public class CategoriaResource {
 	
 	/**
 	 * Metodo GET para paginação das categorias.
-	 * @return Page
+	 * @return ResponseEntity.ok().body(listaDto).
 	 */
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> encontrarCategoriasPorPaginacao(

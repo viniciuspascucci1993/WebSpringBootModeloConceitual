@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import com.vinicius.springboot.mc.model.Categoria;
 
 /**
- * Classe responsável por mandar para a requisição apenas os atributos dos quais precisamos.
+ * Classe responsável por transportar apenas os atributos necessarios para nossas operações.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 public class CategoriaDTO implements Serializable {
@@ -36,6 +36,9 @@ public class CategoriaDTO implements Serializable {
 	@Length(min = 5, max = 80, message = "O Tamanho deve ser entre 5 e 80 caracteres")
 	private String nomeCategoria; 
 	
+	/**
+	 * Construtor vazio.
+	 */
 	public CategoriaDTO() { }
 	
 	/**

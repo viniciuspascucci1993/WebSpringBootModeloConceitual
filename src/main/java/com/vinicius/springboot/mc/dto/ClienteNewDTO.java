@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import com.vinicius.springboot.mc.services.validations.ValidationClienteInsert;
 
 /**
- * Classe responsável por mandar para a requisição apenas os atributos dos quais precisamos.
+ * Classe responsável por transportar apenas os atributos necessarios para nossas operações.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @ValidationClienteInsert
@@ -96,6 +96,9 @@ public class ClienteNewDTO implements Serializable {
 	 */
 	private Integer cidadeId;
 	
+	/**
+	 * Construtor vazio.
+	 */	
 	public ClienteNewDTO() { }
 
 	public String getNomeCliente() {

@@ -98,7 +98,7 @@ public class CategoriaService {
 	 * @param direction - String - indica a direção (ascendente ou descendente).
 	 * @return pageRequest.
 	 */
-	public Page<Categoria> findPage( Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public Page<Categoria> findPage( Integer page, Integer linesPerPage, String orderBy, String direction ) {
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); 
 		

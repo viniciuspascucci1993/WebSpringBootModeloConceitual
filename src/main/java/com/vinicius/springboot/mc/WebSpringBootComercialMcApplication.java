@@ -84,16 +84,38 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 		Produto produto1 = new Produto(null, "Computador", 2000.00, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL);
 		Produto produto2 = new Produto(null, "Impressora", 800.00, 25.10, "Cor Prata", SituacaoProduto.NAO_DISPONIVEL);
 		Produto produto3 = new Produto(null, "Mouse wireless", 45.00, 15.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto4 = new Produto(null, "Mesa Escritório", 450.00, 90.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto5 = new Produto(null, "Jacketa de couro", 100.00, 5.00, "Cor Marrom", SituacaoProduto.DISPONIVEL);
+		Produto produto6 = new Produto(null, "Playstation 4 Slim 1TB", 1250.00, 100.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto7 = new Produto(null, "Game The Last of Us Part II", 170.00, 15.00, "Cor Azul", SituacaoProduto.NAO_DISPONIVEL);
+		Produto produto8 = new Produto(null, "Luminária", 45.00, 40.00, "Cor Verde fluorescente", SituacaoProduto.DISPONIVEL);
+		Produto produto9 = new Produto(null, "Samsung Galaxy S8 128GB", 2300.00, 30.00, "Cor Prata", SituacaoProduto.DISPONIVEL);
+		Produto produto10 = new Produto(null, "Calça Jeans Sport", 45.00, 15.00, "Cor Azul", SituacaoProduto.DISPONIVEL);
+		Produto produto11 = new Produto(null, "Samsung Galaxy S10 128GB", 2500.00, 30.00, "Cor Azul", SituacaoProduto.DISPONIVEL);
 		
-		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3));
-		categoria2.getProdutos().addAll(Arrays.asList(produto2));
+		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto3));
+		categoria2.getProdutos().addAll(Arrays.asList(produto2, produto4));
+		categoria3.getProdutos().addAll(Arrays.asList(produto5));
+		categoria4.getProdutos().addAll(Arrays.asList(produto6, produto7));
+		categoria5.getProdutos().addAll(Arrays.asList(produto8));
+		categoria6.getProdutos().addAll(Arrays.asList(produto9, produto11));
+		categoria7.getProdutos().addAll(Arrays.asList(produto10));
+		
 		
 		produto1.getCategorias().addAll(Arrays.asList(categoria1));
 		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
 		produto3.getCategorias().addAll(Arrays.asList(categoria1));
+		produto4.getCategorias().addAll(Arrays.asList(categoria2));
+		produto5.getCategorias().addAll(Arrays.asList(categoria3));
+		produto6.getCategorias().addAll(Arrays.asList(categoria4));
+		produto7.getCategorias().addAll(Arrays.asList(categoria4));
+		produto8.getCategorias().addAll(Arrays.asList(categoria5));
+		produto9.getCategorias().addAll(Arrays.asList(categoria6));
+		produto10.getCategorias().addAll(Arrays.asList(categoria7));
+		produto11.getCategorias().addAll(Arrays.asList(categoria6));
 		
-		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7 ));
-		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
+		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5, produto6, produto7, produto8, produto9, produto10, produto11));
 		
 		Estado estado1  = new Estado(null, "Minas-gerais");
 		Estado estado2 = new Estado(null, "São Paulo");

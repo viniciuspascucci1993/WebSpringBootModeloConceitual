@@ -11,7 +11,7 @@ import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.services.validations.ValidationClienteUpdate;
 
 /**
- * Classe responsável por mandar para a requisição apenas os atributos dos quais precisamos.
+ * Classe responsável por transportar apenas os atributos necessarios para nossas operações.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @ValidationClienteUpdate
