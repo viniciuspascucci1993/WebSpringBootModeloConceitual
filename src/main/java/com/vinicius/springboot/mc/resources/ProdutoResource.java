@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vinicius.springboot.mc.dto.ProdutoDTO;
 import com.vinicius.springboot.mc.model.Produto;
-import com.vinicius.springboot.mc.resources.utils.UrlAuxiliarUtil;
+import com.vinicius.springboot.mc.resources.util.UrlAuxiliarUtil;
 import com.vinicius.springboot.mc.services.ProdutoService;
 
 /**
@@ -46,7 +46,7 @@ public class ProdutoResource {
 	 * @return ResponseEntity.ok().body(listaDto).
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Page<ProdutoDTO>> encontrarCategoriasPorPaginacao(
+	public ResponseEntity<Page<ProdutoDTO>> findPage(
 			@RequestParam(value = "nomeProduto", defaultValue = "") String nomeProduto,
 			@RequestParam(value = "categorias", defaultValue = "") String categorias,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,

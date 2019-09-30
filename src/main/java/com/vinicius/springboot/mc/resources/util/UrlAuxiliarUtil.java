@@ -1,4 +1,4 @@
-package com.vinicius.springboot.mc.resources.utils;
+package com.vinicius.springboot.mc.resources.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

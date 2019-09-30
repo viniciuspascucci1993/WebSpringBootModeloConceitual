@@ -42,7 +42,7 @@ public class PedidoResource {
 	}
 	
 	/**
-	 * Metodo POST para inserir uma nova categoria.
+	 * Metodo POST para inserir um novo pedido.
 	 * @param obj - Object - obj.
 	 * @return ResponseEntity.created.
 	 */
