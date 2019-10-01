@@ -14,39 +14,61 @@
 	<name>WebSpringBootComercialMC</name>
 	<description>Projeto de Modelagem conceitual e estudio de caso com UML</description>
 
+	<!-- Versão do Java 1.8  -->
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
+	<!-- Dependencies do projeto  -->
 	<dependencies>
+		<!-- Spring starter web dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<!-- END dependency -->
+		
+		<!-- Spring starter test dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- END dependency -->
 		
+		<!-- Spring data jpa dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId> 
 			<artifactId>spring-boot-starter-data-jpa</artifactId> 
 		</dependency>
+		<!-- END dependency -->
 		
+		<!-- Dependency banco de dados h2 -->
 		<dependency>
 			 <groupId>com.h2database</groupId>
 			 <artifactId>h2</artifactId>
 			 <scope>runtime</scope> 
 		</dependency>
+		<!-- END dependency -->
 		
+		<!-- Dependency devTools ( build automátivo ) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId> 
 			<artifactId>spring-boot-devtools</artifactId> 
 		</dependency>
+		<!-- END dependency -->
+		
+		<!-- Dependency banco de dados mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- END dependency -->
 	</dependencies>
+	<!-- END dependencies -->
 
+	<!-- Build do projeto -->
 	<build>
 		<plugins>
 			<plugin>
