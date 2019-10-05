@@ -36,7 +36,7 @@ public class ProfileTestConfig {
 	}
 	
 	@Bean
-	public EmailService enviarEmail() {
+	public EmailService enviarEmailMock() {
 		
 		return new MockEmailService();
 	}

@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.vinicius.springboot.mc.services.DatabaseService;
+import com.vinicius.springboot.mc.services.EmailService;
+import com.vinicius.springboot.mc.services.SmtpEmailService;
 
 /**
  * Classe de configuração indicando que esse perfil é de desenvolvimento da nossa aplicação.
@@ -40,5 +42,10 @@ public class ProfileDevConfig {
 		dbService.instantiateTestDatabase();
 		
 		return true;
+	}
+	
+	@Bean
+	public EmailService enviarEmailSmtp() {
+		return new SmtpEmailService();
 	}
 }
