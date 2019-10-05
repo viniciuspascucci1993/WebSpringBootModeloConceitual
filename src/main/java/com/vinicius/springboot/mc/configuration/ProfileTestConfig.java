@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.vinicius.springboot.mc.services.DatabaseService;
+import com.vinicius.springboot.mc.services.EmailService;
+import com.vinicius.springboot.mc.services.MockEmailService;
 
 /**
  * Classe de configuração indicando que esse perfil é de teste da nossa aplicação.
@@ -31,5 +33,11 @@ public class ProfileTestConfig {
 		dbService.instantiateTestDatabase();
 		
 		return true;
+	}
+	
+	@Bean
+	public EmailService enviarEmail() {
+		
+		return new MockEmailService();
 	}
 }

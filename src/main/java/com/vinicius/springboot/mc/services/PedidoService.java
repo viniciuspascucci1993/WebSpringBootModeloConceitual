@@ -40,6 +40,9 @@ public class PedidoService {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	/**
 	 * Metodo para buscar pelo id do pedido.
 	 * @param id - Integer - id do pedido.
@@ -91,7 +94,8 @@ public class PedidoService {
 		}
 		itemPedidoRepository.saveAll(obj.getItems());
 		
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
+		
 		return obj;
 	}
 }
