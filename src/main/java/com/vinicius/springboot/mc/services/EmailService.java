@@ -1,5 +1,7 @@
 package com.vinicius.springboot.mc.services;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.mail.SimpleMailMessage;
 
 import com.vinicius.springboot.mc.model.Pedido;
@@ -13,5 +15,10 @@ public interface EmailService {
 	void sendOrderConfirmationEmail( Pedido pedido);
 	
 	void sendEmail( SimpleMailMessage mensagem);
+	
+	void sendOrderConfirmationHtmlEmail(Pedido obj); 
+	
+	// Enviar e-mail HTML
+	void sendHtmlEmail(MimeMessage msg); 
 
 }
