@@ -1,6 +1,8 @@
 package com.vinicius.springboot.mc.model;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -221,7 +223,29 @@ public class ItemPedido implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 
+	/**
+	 * Metodo toString para itemPedido para transformar o item em uma String.
+	 */
+	@Override
+	public String toString() {
+		
+		NumberFormat numeroFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Nome Produto: ");
+		builder.append(getProduto().getNomeProduto());
+		builder.append(", Quantidade: ");
+		builder.append(getQuantidade());
+		builder.append(", Descrição: ");
+		builder.append(getDescricaoItemPedido());
+		builder.append(" ");
+		builder.append(", Preço unitário: ");
+		builder.append(numeroFormat.format(getPreco()));
+		builder.append(" ");
+		builder.append(", Sub Total: ");
+		builder.append(numeroFormat.format(getSubTotal()));
+		builder.append("\n");
+		return builder.toString();
+	}
 }

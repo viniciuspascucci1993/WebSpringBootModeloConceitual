@@ -37,6 +37,9 @@ public class PedidoService {
 	@Autowired
 	private BoletoService boletoService;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	/**
 	 * Metodo para buscar pelo id do pedido.
 	 * @param id - Integer - id do pedido.
@@ -60,6 +63,8 @@ public class PedidoService {
 		
 		obj.setHorarioPedido(new Date());
 		
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
+		
 		obj.getPagamento().setSituacaoPagamento(SituacaoPagamento.PAGAMENTO_APROVADO);
 		
 		obj.getPagamento().setPedido(obj);
@@ -78,11 +83,15 @@ public class PedidoService {
 			
 			ip.setDesconto(0.0);
 			
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			
+			ip.setPreco(ip.getProduto().getPreco());
 			
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItems());
+		
+		System.out.println(obj);
 		return obj;
 	}
 }

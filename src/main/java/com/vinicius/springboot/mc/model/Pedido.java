@@ -1,8 +1,11 @@
 package com.vinicius.springboot.mc.model;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -230,6 +233,37 @@ public class Pedido implements Serializable{
 		} else if (!idPedido.equals(other.idPedido))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Metodo toString para itemPedido para transformar o item em uma String.
+	 */	
+	@Override
+	public String toString() {
+		
+		NumberFormat numeroFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido numero: ");
+		builder.append(getIdPedido());
+		builder.append(", Horario pedido: ");
+		builder.append(formatoData.format(getHorarioPedido()));
+		builder.append(" Cliente: ");
+		builder.append(getCliente().getNomeCliente());
+		builder.append(", Situação do pagamento: ");
+		builder.append(getPagamento().getSituacaoPagamento().getDescricao());
+		builder.append("\nDetalhes do item: \n");
+		
+		for (ItemPedido ip : getItems()) {
+			builder.append(ip.toString());
+			
+		}
+		
+		builder.append("Valor Total dos produtos: ");
+		builder.append(numeroFormat.format(getValorTotal()));
+		return builder.toString();
 	}
 
 	

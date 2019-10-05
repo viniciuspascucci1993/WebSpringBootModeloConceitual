@@ -21,6 +21,7 @@
 
 	<!-- Dependencies do projeto  -->
 	<dependencies>
+	
 		<!-- Spring starter web dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,6 +66,7 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!-- END dependency -->
+		<!-- END dpendency -->
 	</dependencies>
 	<!-- END dependencies -->
 
