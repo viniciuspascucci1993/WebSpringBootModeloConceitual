@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,6 +88,7 @@ public class ClienteResource {
 	 * @param id - Integer - id da categoria.
 	 * @return ResponseEntity<Void>
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete( @PathVariable Integer id ) {
 		
@@ -100,6 +102,7 @@ public class ClienteResource {
 	 * Metodo GET para listar todas as categorias.
 	 * @return ResponseEntity<Cliente>
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		
@@ -115,6 +118,7 @@ public class ClienteResource {
 	 * Metodo GET para paginação das categorias.
 	 * @return Page
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> encontrarClientesPorPaginacao(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
