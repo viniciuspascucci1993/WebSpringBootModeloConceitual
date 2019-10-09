@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.vinicius.springboot.mc.services.exception.AuthorizationException;
 import com.vinicius.springboot.mc.services.exception.DataIntegrityException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
@@ -18,6 +19,20 @@ import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
  */
 @ControllerAdvice
 public class ResourceExceptionHandler {
+	
+	/**
+	 * Método responsável por tratar uma mensagem adequada para caso não seja encontrado o objeto.
+	 * @param e - mensagem do erro.
+	 * @param request - requisição HTTP.
+	 * @return ResponseEntity.
+	 */
+	@ExceptionHandler( AuthorizationException.class)
+	public ResponseEntity<StandardError> authorizationException(AuthorizationException e, HttpServletRequest request) {
+		
+		StandardError erro = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis()); 
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(erro);
+	}
 	
 	/**
 	 * Método responsável por tratar uma mensagem adequada para caso não seja encontrado o objeto.

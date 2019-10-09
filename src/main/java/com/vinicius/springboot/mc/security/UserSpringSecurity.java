@@ -106,5 +106,10 @@ public class UserSpringSecurity implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	// Metodo para verificar se o usuario possui permissão de ADMIN 
+	public boolean hasPermission( Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
 
 }

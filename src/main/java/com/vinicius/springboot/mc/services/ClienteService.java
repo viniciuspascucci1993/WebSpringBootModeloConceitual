@@ -17,9 +17,12 @@ import com.vinicius.springboot.mc.dto.ClienteNewDTO;
 import com.vinicius.springboot.mc.model.Cidade;
 import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.Endereco;
+import com.vinicius.springboot.mc.model.enums.Perfil;
 import com.vinicius.springboot.mc.model.enums.TipoCliente;
 import com.vinicius.springboot.mc.repositories.ClienteRepository;
 import com.vinicius.springboot.mc.repositories.EnderecoRepository;
+import com.vinicius.springboot.mc.security.UserSpringSecurity;
+import com.vinicius.springboot.mc.services.exception.AuthorizationException;
 import com.vinicius.springboot.mc.services.exception.DataIntegrityException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
@@ -45,6 +48,12 @@ public class ClienteService {
 	 * @return Cliente.
 	 */	
 	public Cliente find( Integer id )  {
+		
+		
+		UserSpringSecurity user = UserService.getUserLogado();
+		if (user == null || !user.hasPermission(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado!");
+		}
 		
 		Optional<Cliente> clienteObj = clienteRepository.findById(id);
 		return clienteObj.orElseThrow(() -> new ObjectNotFoundException (
