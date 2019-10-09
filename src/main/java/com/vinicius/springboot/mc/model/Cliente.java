@@ -60,6 +60,12 @@ public class Cliente implements Serializable{
 	private Integer tipoCliente;	
 	
 	/**
+	 * Representa a senha do cliente.
+	 */
+	@JsonIgnore
+	private String senha;
+	
+	/**
 	 * Representa uma lista de endereços.
 	 */
 	@OneToMany( mappedBy = "cliente", cascade = CascadeType.ALL)
@@ -93,14 +99,16 @@ public class Cliente implements Serializable{
 	 * @param email - String - e-mail do cliente.
 	 * @param cpfCnpj - CPF e/ou CNPJ do cliente.
 	 * @param tipoCliente - TipoCliente - tipo do cliente.
+	 * @param senha - String - senha do cliente.
 	 */
-	public Cliente(Integer id, String nomeCliente, String email, String cpfCnpj, TipoCliente tipoCliente) {
+	public Cliente(Integer id, String nomeCliente, String email, String cpfCnpj, TipoCliente tipoCliente, String senha) {
 		super();
 		this.id = id;
 		this.nomeCliente = nomeCliente;
 		this.email = email;
 		this.cpfCnpj = cpfCnpj;
 		this.tipoCliente = ( tipoCliente == null ) ? null : tipoCliente.getCodigo(); // função ternária
+		this.senha = senha;
 	}
 	
 	/**
@@ -166,6 +174,39 @@ public class Cliente implements Serializable{
 	public void setCpfCnpj(final String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
+	
+	/**
+	 * Metodo get().
+	 * @return tipoCliente - Object - tipo do cliente.
+	 */
+	public TipoCliente getTipoCliente() {
+		return TipoCliente.toEnum(tipoCliente);
+	}
+
+	/**
+	 * Metodo set().
+	 * @param tipoCliente - Object - tipo do cliente.
+	 */
+	public void setTipoCliente(final TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente.getCodigo();
+	}
+	
+
+	/**
+	 * Metodo get().
+	 * @return senha - String - senha do cliente.
+	 */
+	public String getSenha() {
+		return this.senha;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param senha - String - senha do cliente.
+	 */
+	public void setSenha(final String senha) {
+		this.senha = senha;
+	}
 
 	/**
 	 * Metodo get().
@@ -214,22 +255,6 @@ public class Cliente implements Serializable{
 	@OneToMany( mappedBy = "cliente")
 	public void setPedidos(final List<Pedido> pedidos) {
 		this.pedidos = pedidos;
-	}
-
-	/**
-	 * Metodo get().
-	 * @return tipoCliente - Object - tipo do cliente.
-	 */
-	public TipoCliente getTipoCliente() {
-		return TipoCliente.toEnum(tipoCliente);
-	}
-
-	/**
-	 * Metodo set().
-	 * @param tipoCliente - Object - tipo do cliente.
-	 */
-	public void setTipoCliente(final TipoCliente tipoCliente) {
-		this.tipoCliente = tipoCliente.getCodigo();
 	}
 
 	/**

@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,9 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoderPassword;
 	
 	/**
 	 * Metodo para buscar pelo id do cliente.
@@ -127,7 +131,7 @@ public class ClienteService {
 	 */
 	public Cliente convertFromDTO( ClienteDTO objetoDTO) {
 		
-		return new Cliente(objetoDTO.getId(), objetoDTO.getNomeCliente(), objetoDTO.getEmail(), null, null);
+		return new Cliente(objetoDTO.getId(), objetoDTO.getNomeCliente(), objetoDTO.getEmail(), null, null, null);
 	}
 	
 	/**
@@ -137,7 +141,8 @@ public class ClienteService {
 	 */
 	public Cliente convertFromDTO( ClienteNewDTO objetoDTO) {
 		
-		Cliente cliente = new Cliente(null, objetoDTO.getNomeCliente(), objetoDTO.getEmail(), objetoDTO.getCpfCnpj(), TipoCliente.toEnum(objetoDTO.getTipoCliente()));
+		Cliente cliente = new Cliente(null, objetoDTO.getNomeCliente(), objetoDTO.getEmail(), objetoDTO.getCpfCnpj(), TipoCliente.toEnum(objetoDTO.getTipoCliente()), 
+				encoderPassword.encode(objetoDTO.getSenha()));
 		
 		Cidade cidade = new Cidade(objetoDTO.getCidadeId(), null, null );
 		

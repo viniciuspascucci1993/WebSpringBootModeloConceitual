@@ -47,6 +47,12 @@ public class ClienteNewDTO implements Serializable {
 	private Integer tipoCliente;	
 	
 	/**
+	 * Representa a senha do cliente.
+	 */
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String senha;	
+	
+	/**
 	 * Representa o logradouro do endereço.
 	 */
 	@NotEmpty(message = "Preenchimento obrigatório")
@@ -161,6 +167,22 @@ public class ClienteNewDTO implements Serializable {
 		this.tipoCliente = tipoCliente;
 	}
 
+	/**
+	 * Metodo get().
+	 * @return senha - String - senha do cliente.
+	 */
+	public String getSenha() {
+		return this.senha;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param senha - String - senha do cliente.
+	 */
+	public void setSenha(final String senha) {
+		this.senha = senha;
+	}	
+	
 	/**
 	 * Metodo get().
 	 * @return logradouro - String - logradouro do endereço.

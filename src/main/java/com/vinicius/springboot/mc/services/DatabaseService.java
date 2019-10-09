@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vinicius.springboot.mc.model.Categoria;
@@ -37,6 +38,9 @@ import com.vinicius.springboot.mc.repositories.ProdutoRepository;
  */
 @Service
 public class DatabaseService {
+	
+	@Autowired
+	private BCryptPasswordEncoder encoderPassword;
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -124,8 +128,8 @@ public class DatabaseService {
 		estadoRepository.saveAll(Arrays.asList(estado1, estado2));
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		
-		Cliente cliente01 = new Cliente(null, "Vinicius Torres Pascucci", "vinicius.pascucci1@gmail.com", "421.554.358-43", TipoCliente.PESSOA_FISICA);
-		Cliente cliente02 = new Cliente(null, "Vinicius Pascucci", "vinicius.torres.pascucci59040@gmail.com", "731.758.640-40", TipoCliente.PESSOA_FISICA);
+		Cliente cliente01 = new Cliente(null, "Vinicius Torres Pascucci", "vinicius.pascucci1@gmail.com", "421.554.358-43", TipoCliente.PESSOA_FISICA, encoderPassword.encode("123"));
+		Cliente cliente02 = new Cliente(null, "Vinicius Pascucci", "vinicius.torres.pascucci59040@gmail.com", "731.758.640-40", TipoCliente.PESSOA_FISICA, encoderPassword.encode("456"));
 		
 		cliente01.getTelefones().addAll(Arrays.asList("112544-9669", "1194558-9975"));
 		cliente02.getTelefones().addAll(Arrays.asList("114457-8970", "1199674-5580"));
