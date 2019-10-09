@@ -19,3 +19,4 @@ public class WebSpringBootComercialMcApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception { }
 
 }
+ 	

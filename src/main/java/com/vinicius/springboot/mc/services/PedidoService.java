@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.ItemPedido;
 import com.vinicius.springboot.mc.model.PagamentoComBoleto;
 import com.vinicius.springboot.mc.model.Pedido;
@@ -13,6 +17,8 @@ import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 import com.vinicius.springboot.mc.repositories.ItemPedidoRepository;
 import com.vinicius.springboot.mc.repositories.PagamentoRepository;
 import com.vinicius.springboot.mc.repositories.PedidoRepository;
+import com.vinicius.springboot.mc.security.UserSpringSecurity;
+import com.vinicius.springboot.mc.services.exception.AuthorizationException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
 /**
@@ -97,5 +103,28 @@ public class PedidoService {
 		emailService.sendOrderConfirmationEmail(obj);
 		
 		return obj;
+	}
+	
+	/**
+	 * Metodo para paginação.
+	 * @param page - Integwe - quantidade de paginas por paginação.
+	 * @param linesPerPage - Integer - quantidade de linhas por pagina.
+	 * @param orderBy - String - inidica a ordenaçãop (ordenado por).
+	 * @param direction - String - indica a direção (ascendente ou descendente).
+	 * @return pageRequest.
+	 */
+	public Page<Pedido> findPage( Integer page, Integer linesPerPage, String orderBy, String direction ) {
+		
+		UserSpringSecurity user = UserService.getUserLogado();
+		if (user == null) {
+			throw new AuthorizationException("Acesso Negado!");
+		}
+		
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); 
+		
+		Cliente cliente = clienteService.find(user.getId());
+		
+		return pedidoRepository.findByCliente(cliente, pageRequest);
+		
 	}
 }
