@@ -19,6 +19,7 @@ import com.vinicius.springboot.mc.model.PagamentoComBoleto;
 import com.vinicius.springboot.mc.model.PagamentoComCartao;
 import com.vinicius.springboot.mc.model.Pedido;
 import com.vinicius.springboot.mc.model.Produto;
+import com.vinicius.springboot.mc.model.enums.Perfil;
 import com.vinicius.springboot.mc.model.enums.SituacaoPagamento;
 import com.vinicius.springboot.mc.model.enums.SituacaoProduto;
 import com.vinicius.springboot.mc.model.enums.TipoCliente;
@@ -129,7 +130,10 @@ public class DatabaseService {
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 		
 		Cliente cliente01 = new Cliente(null, "Vinicius Torres Pascucci", "vinicius.pascucci1@gmail.com", "421.554.358-43", TipoCliente.PESSOA_FISICA, encoderPassword.encode("123"));
-		Cliente cliente02 = new Cliente(null, "Vinicius Pascucci", "vinicius.torres.pascucci59040@gmail.com", "731.758.640-40", TipoCliente.PESSOA_FISICA, encoderPassword.encode("456"));
+		
+		Cliente cliente02 = new Cliente(null, "Ana Costa Silveira", "ana.costa@gmail.com", "731.758.640-40", TipoCliente.PESSOA_FISICA, encoderPassword.encode("456"));
+		
+		cliente02.addPerfil(Perfil.ADMIN);
 		
 		cliente01.getTelefones().addAll(Arrays.asList("112544-9669", "1194558-9975"));
 		cliente02.getTelefones().addAll(Arrays.asList("114457-8970", "1199674-5580"));

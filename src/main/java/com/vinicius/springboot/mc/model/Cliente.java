@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vinicius.springboot.mc.model.enums.Perfil;
 import com.vinicius.springboot.mc.model.enums.TipoCliente;
 
 /**
@@ -79,18 +82,25 @@ public class Cliente implements Serializable{
 	private Set<String> telefones = new HashSet<String>();
 	
 	/**
+	 * Representa um conjunto de Set de inteiros armazenaod o perfil do usuario.
+	 */
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable( name = "PERFIS")
+	private Set<Integer> perfisUsuario = new HashSet<>();
+	
+	/**
 	 * Representa uma lista de pedidos.
 	 */
 	@JsonIgnore
 	@OneToMany( mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
-
-	
 	/**
 	 * Construtor vazio.
 	 */
-	public Cliente() { }
+	public Cliente() {
+		addPerfil(Perfil.CLIENTE);
+	}
 
 	/**
 	 * Consturtor com argumentos.
@@ -109,6 +119,7 @@ public class Cliente implements Serializable{
 		this.cpfCnpj = cpfCnpj;
 		this.tipoCliente = ( tipoCliente == null ) ? null : tipoCliente.getCodigo(); // função ternária
 		this.senha = senha;
+		addPerfil(Perfil.CLIENTE); 	
 	}
 	
 	/**
@@ -208,6 +219,22 @@ public class Cliente implements Serializable{
 		this.senha = senha;
 	}
 
+	/**
+	 * Metodo get().
+	 * @return getPerfil - pega o perfil do usuario. Retona os perfis do cliente.
+	 */
+	public Set<Perfil> getPerfis() {
+		return perfisUsuario.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	/**
+	 * Metodo para adicionar um perfil.
+	 * @param perfil
+	 */
+	public void addPerfil(Perfil perfil) {
+		perfisUsuario.add(perfil.getCodigo());
+	}
+	
 	/**
 	 * Metodo get().
 	 * @return enderecos - List<Endereco> - lista de endereços.
