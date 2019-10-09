@@ -20,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.vinicius.springboot.mc.security.util.JWTUtil;
 import com.vinicius.springboot.mc.security.web.filter.JWTAuthenticationFilter;
+import com.vinicius.springboot.mc.security.web.filter.JWTAuthorizationFilter;
 
 /**
  * Classe respon´savel por definir as nossas configurações de segurança.
@@ -65,7 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers( HttpMethod.GET, PERMISSIONS_GET).permitAll()
 			.antMatchers(PERMISSIONS).permitAll()
 			.anyRequest().authenticated();
-		security.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));	
+		security.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		security.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailService));
 		security.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	

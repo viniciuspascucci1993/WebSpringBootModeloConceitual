@@ -1,4 +1,4 @@
-package com.vinicius.springboot.mc;
+ package com.vinicius.springboot.mc;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
