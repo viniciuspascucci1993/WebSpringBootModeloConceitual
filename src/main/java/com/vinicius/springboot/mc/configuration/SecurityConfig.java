@@ -7,14 +7,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.vinicius.springboot.mc.security.util.JWTUtil;
+import com.vinicius.springboot.mc.security.web.filter.JWTAuthenticationFilter;
 
 /**
  * Classe respon´savel por definir as nossas configurações de segurança.
@@ -24,9 +29,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	@Autowired
+	private UserDetailsService userDetailService;
 	
 	@Autowired
 	private Environment environment;
+	
+	@Autowired
+	private JWTUtil jwtUtil;
 	
 	private static final String[] PERMISSIONS = { 
 			"/h2-console/**"
@@ -37,8 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/categorias/**",
 			"/clientes/**"
 	};
-	
-
 	
 	/**
 	 * Configuração para permitir nossos acessos a partir das nossas chaves de vetores.
@@ -57,7 +65,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers( HttpMethod.GET, PERMISSIONS_GET).permitAll()
 			.antMatchers(PERMISSIONS).permitAll()
 			.anyRequest().authenticated();
+		security.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));	
 		security.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	/**
+	 * Configuração para autenticação.
+	 */
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
 	}
 	
 	/**

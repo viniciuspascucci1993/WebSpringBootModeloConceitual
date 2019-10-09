@@ -48,6 +48,11 @@ public class Produto implements Serializable {
 	private double preco;
 	
 	/**
+	 * Representa o codigo do produto.
+	 */
+	private Integer codigoProduto;
+	
+	/**
 	 * Representa o peso do produto.
 	 */
 	private double peso;
@@ -95,7 +100,7 @@ public class Produto implements Serializable {
 	 * @param cor - String - cor do produto.
 	 * @param disponivel - boolean - disponivel ou não.
 	 */
-	public Produto(Integer id, String nomeProduto, double preco, double peso, String cor, SituacaoProduto disponivel) {
+	public Produto(Integer id, String nomeProduto, double preco, double peso, String cor, SituacaoProduto disponivel, Integer codigoProduto) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
@@ -103,6 +108,7 @@ public class Produto implements Serializable {
 		this.peso = peso;
 		this.cor = cor;
 		this.disponivel = (disponivel == null) ? null : disponivel.getCodigoSituacao();
+		this.codigoProduto = codigoProduto;
 	}
 	
 	/**
@@ -165,6 +171,22 @@ public class Produto implements Serializable {
 	 */
 	public void setPreco(final double preco) {
 		this.preco = preco;
+	}
+
+	/**
+	 * Metodo get().
+	 * @return codigoProduto - Integer - codigo do produto.
+	 */
+	public Integer getCodigoProduto() {
+		return this.codigoProduto;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param codigoProduto - Integer - codigo do produto.
+	 */
+	public void setCodigoProduto(final Integer codigoProduto) {
+		this.codigoProduto = codigoProduto;
 	}
 
 	/**
