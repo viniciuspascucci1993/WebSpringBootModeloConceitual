@@ -2,6 +2,7 @@ package com.vinicius.springboot.mc.services;
 
 import org.springframework.mail.SimpleMailMessage;
 
+import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.Pedido;
 
 /**
@@ -13,5 +14,7 @@ public interface EmailService {
 	void sendOrderConfirmationEmail( Pedido pedido);
 	
 	void sendEmail( SimpleMailMessage mensagem);
+	
+	void sendNewPasswordEmail(Cliente cliente, String email);
 
 }
