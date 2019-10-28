@@ -1,10 +1,10 @@
  package com.vinicius.springboot.mc.services.exception;
 
 /**
- * Classe responsável por tratar as nossas exceções personalizadas de autorização.
+ * Classe responsável por tratar as nossas exceções personalizadas de imagem.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
-public class AuthorizationException extends RuntimeException{
+public class FileException extends RuntimeException{
 
 	/**
 	 * Serial version UID.
@@ -12,19 +12,19 @@ public class AuthorizationException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * AuthorizationException.
+	 * FileException.
 	 * @param mensagem - String - mensagem personalizada.
 	 */
-	public AuthorizationException(String mensagem) { 
+	public FileException(String mensagem) { 
 		super(mensagem);
 	}
 	
 	/**
-	 * AuthorizationException.
+	 * FileException.
 	 * @param mensagem - String - mensagem personalizada.
 	 * @param cause - Throwable - causa da exceção.
 	 */
-	public AuthorizationException(String mensagem, Throwable cause) {
+	public FileException(String mensagem, Throwable cause) {
 		super(mensagem, cause);
 	}
 

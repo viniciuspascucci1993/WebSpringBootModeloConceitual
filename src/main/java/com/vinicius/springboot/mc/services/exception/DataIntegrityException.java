@@ -1,9 +1,8 @@
 package com.vinicius.springboot.mc.services.exception;
 
 /**
- * Classe responsável por tratar as nossas exceções personalizadas.
+ * Classe responsável por tratar as nossas exceções personalizadas de dados integrados.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
- *
  */
 public class DataIntegrityException extends RuntimeException{
 
