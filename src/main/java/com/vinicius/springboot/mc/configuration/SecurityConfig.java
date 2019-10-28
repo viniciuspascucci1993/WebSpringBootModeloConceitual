@@ -52,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private static final String[] PERMISSIONS_POST = { 
 			"/clientes",
-			"/clientes/picture",
 			"/auth/forgot/**"
 	};
 	
