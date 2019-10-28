@@ -1,5 +1,6 @@
 package com.vinicius.springboot.mc.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.vinicius.springboot.mc.dto.ClienteDTO;
 import com.vinicius.springboot.mc.dto.ClienteNewDTO;
@@ -41,6 +43,9 @@ public class ClienteService {
 	
 	@Autowired
 	private BCryptPasswordEncoder encoderPassword;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	/**
 	 * Metodo para buscar pelo id do cliente.
@@ -182,5 +187,15 @@ public class ClienteService {
 		
 		newObj.setNomeCliente(obj.getNomeCliente());
 		newObj.setEmail(obj.getEmail());
+	}
+	
+	/**
+	 * Metodo responsável por enviar foto de perfil para o S3.
+	 * @param multipartFile - MultipartFile.
+	 * @return s3Service.uploadFile(multipartFile);
+	 */
+	public URI uploadProfilePicture( MultipartFile multipartFile ) {
+		
+		return s3Service.uploadFile(multipartFile);
 	}
 }
