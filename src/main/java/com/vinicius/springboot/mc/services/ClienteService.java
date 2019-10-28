@@ -55,6 +55,9 @@ public class ClienteService {
 	@Value("${img.prefix.client.profile}")
 	private String prefixo;
 	
+	@Value("${img.profile.size}")
+	private Integer resize;
+	
 	/**
 	 * Metodo para buscar pelo id do cliente.
 	 * @param id - Integer - id do cliente.
@@ -212,6 +215,10 @@ public class ClienteService {
 		}
 		
 		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		
+		jpgImage = imageService.cropImageToSquare(jpgImage);
+		
+		jpgImage = imageService.resizeImage(jpgImage, resize);
 		
 		// Montar o nome do arquivo personalizado com base no cliente que esta logado.
 		String fileName = prefixo + user.getId() + ".jpg";
