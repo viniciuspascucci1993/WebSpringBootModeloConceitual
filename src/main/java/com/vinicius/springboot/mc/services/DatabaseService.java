@@ -32,7 +32,6 @@ import com.vinicius.springboot.mc.repositories.ItemPedidoRepository;
 import com.vinicius.springboot.mc.repositories.PagamentoRepository;
 import com.vinicius.springboot.mc.repositories.PedidoRepository;
 import com.vinicius.springboot.mc.repositories.ProdutoRepository;
-import com.vinicius.springboot.mc.resources.util.GeradorCodigoUtil;
 
 /**
  * Service responsável por instanciar nossas classes de modelo.
@@ -81,17 +80,17 @@ public class DatabaseService {
 		Categoria categoria6 = new Categoria(null, "Celulares");
 		Categoria categoria7 = new Categoria(null, "Calçados");
 		
-		Produto produto1 = new Produto(null, "Computador", 2000.00, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(22));
-		Produto produto2 = new Produto(null, "Impressora", 800.00, 25.10, "Cor Prata", SituacaoProduto.NAO_DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(12));
-		Produto produto3 = new Produto(null, "Mouse wireless", 45.00, 15.00, "Cor Preta", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(14));
-		Produto produto4 = new Produto(null, "Mesa Escritório", 450.00, 90.00, "Cor Preta", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(21));
-		Produto produto5 = new Produto(null, "Jacketa de couro", 100.00, 5.00, "Cor Marrom", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(2));
-		Produto produto6 = new Produto(null, "Playstation 4 Slim 1TB", 1250.00, 100.00, "Cor Preta", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(10));
-		Produto produto7 = new Produto(null, "Game The Last of Us Part II", 170.00, 15.00, "Cor Azul", SituacaoProduto.NAO_DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(11));
-		Produto produto8 = new Produto(null, "Luminária", 45.00, 40.00, "Cor Verde fluorescente", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(9));
-		Produto produto9 = new Produto(null, "Samsung Galaxy S8 128GB", 2300.00, 30.00, "Cor Prata", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(25));
-		Produto produto10 = new Produto(null, "Calça Jeans Sport", 45.00, 15.00, "Cor Azul", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(23));
-		Produto produto11 = new Produto(null, "Samsung Galaxy S10 128GB", 2500.00, 30.00, "Cor Azul", SituacaoProduto.DISPONIVEL, GeradorCodigoUtil.gerarNumeroAleatorio(26));
+		Produto produto1 = new Produto(null, "Computador", 2000.00, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto2 = new Produto(null, "Impressora", 800.00, 25.10, "Cor Prata", SituacaoProduto.NAO_DISPONIVEL);
+		Produto produto3 = new Produto(null, "Mouse wireless", 45.00, 15.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto4 = new Produto(null, "Mesa Escritório", 450.00, 90.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto5 = new Produto(null, "Jacketa de couro", 100.00, 5.00, "Cor Marrom", SituacaoProduto.DISPONIVEL);
+		Produto produto6 = new Produto(null, "Playstation 4 Slim 1TB", 1250.00, 100.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
+		Produto produto7 = new Produto(null, "Game The Last of Us Part II", 170.00, 15.00, "Cor Azul", SituacaoProduto.NAO_DISPONIVEL);
+		Produto produto8 = new Produto(null, "Luminária", 45.00, 40.00, "Cor Verde fluorescente", SituacaoProduto.DISPONIVEL);
+		Produto produto9 = new Produto(null, "Samsung Galaxy S8 128GB", 2300.00, 30.00, "Cor Prata", SituacaoProduto.DISPONIVEL);
+		Produto produto10 = new Produto(null, "Calça Jeans Sport", 45.00, 15.00, "Cor Azul", SituacaoProduto.DISPONIVEL);
+		Produto produto11 = new Produto(null, "Samsung Galaxy S10 128GB", 2500.00, 30.00, "Cor Azul", SituacaoProduto.DISPONIVEL);
 		
 		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto3));
 		categoria2.getProdutos().addAll(Arrays.asList(produto2, produto4));

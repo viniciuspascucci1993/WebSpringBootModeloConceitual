@@ -35,6 +35,10 @@ public class ProfileTestConfig {
 		return true;
 	}
 	
+	/**
+	 * Metodo para simular o envio de e-mail SMTP da Google.
+	 * @return new MockEmailService();
+	 */
 	@Bean
 	public EmailService enviarEmailMock() {
 		

@@ -1,7 +1,7 @@
 package com.vinicius.springboot.mc.model.enums;
 
 /**
- * Enum responsável por enumerar qual o tipo de pagamento.
+ * Enum responsável por enumerar qual o tipo de perfil do usuario.
  * @author Vinicius-PC - Vinicius Torres Pascucci
  */
 public enum Perfil {

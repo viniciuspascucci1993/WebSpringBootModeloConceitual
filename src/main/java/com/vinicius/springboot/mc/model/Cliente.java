@@ -96,7 +96,7 @@ public class Cliente implements Serializable{
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	/**
-	 * Construtor vazio.
+	 * Construtor com método addPerfil().
 	 */
 	public Cliente() {
 		addPerfil(Perfil.CLIENTE);

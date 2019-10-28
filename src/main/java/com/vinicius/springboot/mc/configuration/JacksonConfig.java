@@ -16,6 +16,10 @@ import com.vinicius.springboot.mc.model.PagamentoComCartao;
 public class JacksonConfig {
 
 	 // https://stackoverflow.com/questions/41452598/overcome-can-not-construct-instance-ofinterfaceclass-without-hinting-the-pare 
+	/**
+	 * Bean de configuração para registrar os nossos subTipos da classe Pagamento.
+	 * @return builder;
+	 */
 	@Bean
 	public Jackson2ObjectMapperBuilder objectMapperBuilder() {
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder() {

@@ -88,7 +88,5 @@ public class StandardError implements Serializable {
 	public void setTimeStamp(final Long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-	
-	
 
 }

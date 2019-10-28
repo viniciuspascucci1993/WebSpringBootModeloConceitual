@@ -3,7 +3,6 @@ package com.vinicius.springboot.mc.services.exception;
 /**
  * Classe responsável por tratar as nossas exceções personalizadas.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
- *
  */
 public class ObjectNotFoundException extends RuntimeException{
 

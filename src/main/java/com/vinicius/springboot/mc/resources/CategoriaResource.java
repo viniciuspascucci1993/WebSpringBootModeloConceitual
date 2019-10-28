@@ -37,7 +37,7 @@ public class CategoriaResource {
 	 * Metodo GET para requisições de consulta
 	 * @param id - Integer - id da categoria.
 	 * @return ResponseEntity<Categoria>
-	 */
+	 */ 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Categoria> find( @PathVariable Integer id ) {
 		
