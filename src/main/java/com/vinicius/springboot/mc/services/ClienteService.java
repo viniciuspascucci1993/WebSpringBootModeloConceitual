@@ -65,7 +65,6 @@ public class ClienteService {
 	 */	
 	public Cliente find( Integer id )  {
 		
-		
 		UserSpringSecurity user = UserService.getUserLogado();
 		if (user == null || !user.hasPermission(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso Negado!");
@@ -132,6 +131,30 @@ public class ClienteService {
 		
 		return clienteRepository.findAll();
 		
+	}
+	/**
+	 * Metodo p0ara encontrar um cliente pelo e-mail.
+	 * @param email - String - email do cliente.
+	 * @return obj.
+	 */
+	public Cliente findByEmail( String email ) {
+		
+		UserSpringSecurity user = UserService.getUserLogado();
+		
+		if (user == null || !user.hasPermission(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			
+			throw new AuthorizationException("Acesso Negado!");
+		}
+		
+		Cliente obj = clienteRepository.findByEmail(email);
+		
+		if (obj == null) {
+			
+			throw new ObjectNotFoundException(
+					"Cliente não encontrado! Identificador: " + user.getId() + ", Tipo do objeto: " + Cliente.class.getName());
+		}
+		
+		return obj;
 	}
 	
 	/**

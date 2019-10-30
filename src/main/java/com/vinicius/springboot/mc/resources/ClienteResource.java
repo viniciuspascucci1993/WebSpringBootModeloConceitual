@@ -42,7 +42,7 @@ public class ClienteResource {
 	/**
 	 * Metodo GET para requisições de consulta
 	 * @param id - Integer - id do cliente.
-	 * @return ResponseEntity<Cliente>
+	 * @return ResponseEntity.ok().body(clienteObj);
 	 */	
 	@ApiOperation(value = "Metodo GET para requisições de consulta listando pelo ID.")
 	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.GET)
@@ -53,6 +53,21 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(clienteObj);
 		
 	}
+	
+	/**
+	 * Metodo GET para consultar cliente pelo email.
+	 * @param email - String - email do cliente.
+	 * @return ResponseEntity.ok().body(obj);
+	 */
+	@ApiOperation(value = "Metodo GET consultar cliente pelo email.")
+	@RequestMapping( produces = "application/json", value = "/email", method = RequestMethod.GET)
+	public ResponseEntity<Cliente> findEmail( @RequestParam( value = "value") String email) {
+		
+		Cliente obj = service.findByEmail(email);
+		
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	
 	/**
 	 * Metodo POST para inserir um cliente.

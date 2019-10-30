@@ -77,7 +77,7 @@ public class DatabaseService {
 		Categoria categoria3 = new Categoria(null, "Roupas e Cassacos");
 		Categoria categoria4 = new Categoria(null, "Games, Consoles e Acessorios");
 		Categoria categoria5 = new Categoria(null, "Decoração");
-		Categoria categoria6 = new Categoria(null, "Celulares");
+		Categoria categoria6 = new Categoria(null, "Eletronicos");
 		Categoria categoria7 = new Categoria(null, "Calçados");
 		
 		Produto produto1 = new Produto(null, "Computador", 2000.00, 30.05, "Cor Preta", SituacaoProduto.DISPONIVEL);
