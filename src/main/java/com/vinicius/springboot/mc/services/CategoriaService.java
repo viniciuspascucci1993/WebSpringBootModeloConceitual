@@ -84,7 +84,7 @@ public class CategoriaService {
 	/**
 	 * Metodo para buscar todas as categorias.
 	 */
-	public List<Categoria> buscarTodasCategorias() {
+	public List<Categoria> findAll() {
 		
 		return categoriaRepository.findAll();
 		

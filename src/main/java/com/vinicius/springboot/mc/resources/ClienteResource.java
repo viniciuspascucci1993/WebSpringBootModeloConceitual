@@ -129,7 +129,7 @@ public class ClienteResource {
 		
 		Page<Cliente> lista = service.findPage(page, linesPerPage, orderBy, direction);
 		
-		Page<ClienteDTO> listaDto = lista.map(categoriaObj -> new ClienteDTO(categoriaObj)); // Assim convertemos uma lista para outta lista
+		Page<ClienteDTO> listaDto = lista.map(clienteObj -> new ClienteDTO(clienteObj)); // Assim convertemos uma lista para outta lista
 		
 		return ResponseEntity.ok().body(listaDto);
 	}

@@ -87,7 +87,7 @@ public class DatabaseService {
 		Produto produto5 = new Produto(null, "Jacketa de couro", 100.00, 5.00, "Cor Marrom", SituacaoProduto.DISPONIVEL);
 		Produto produto6 = new Produto(null, "Playstation 4 Slim 1TB", 1250.00, 100.00, "Cor Preta", SituacaoProduto.DISPONIVEL);
 		Produto produto7 = new Produto(null, "Game The Last of Us Part II", 170.00, 15.00, "Cor Azul", SituacaoProduto.NAO_DISPONIVEL);
-		Produto produto8 = new Produto(null, "Luminária", 45.00, 40.00, "Cor Verde fluorescente", SituacaoProduto.DISPONIVEL);
+		Produto produto8 = new Produto(null, "Luminária", 45.00, 40.00, "Cor Verde", SituacaoProduto.DISPONIVEL);
 		Produto produto9 = new Produto(null, "Samsung Galaxy S8 128GB", 2300.00, 30.00, "Cor Prata", SituacaoProduto.DISPONIVEL);
 		Produto produto10 = new Produto(null, "Calça Jeans Sport", 45.00, 15.00, "Cor Azul", SituacaoProduto.DISPONIVEL);
 		Produto produto11 = new Produto(null, "Samsung Galaxy S10 128GB", 2500.00, 30.00, "Cor Azul", SituacaoProduto.DISPONIVEL);

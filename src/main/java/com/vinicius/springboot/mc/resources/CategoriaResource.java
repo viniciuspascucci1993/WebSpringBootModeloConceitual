@@ -1,9 +1,17 @@
 package com.vinicius.springboot.mc.resources;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +30,13 @@ import com.vinicius.springboot.mc.dto.CategoriaDTO;
 import com.vinicius.springboot.mc.model.Categoria;
 import com.vinicius.springboot.mc.services.CategoriaService;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+
 /**
  * Classe CategoriaResource que representa os nossos serviços REST.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
@@ -32,6 +47,9 @@ public class CategoriaResource {
 
 	@Autowired
 	private CategoriaService service;
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	/**
 	 * Metodo GET para requisições de consulta
@@ -103,9 +121,9 @@ public class CategoriaResource {
 	 * @return ResponseEntity<Categoria>
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<CategoriaDTO>> buscarTodasCategorias() {
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		
-		List<Categoria> lista = service.buscarTodasCategorias();
+		List<Categoria> lista = service.findAll();
 		
 		List<CategoriaDTO> listaDto = lista.stream()
 					.map(categoriaObj -> new CategoriaDTO(categoriaObj)).collect(Collectors.toList()); // Assim convertemos uma lista para outta lista
@@ -130,4 +148,48 @@ public class CategoriaResource {
 		
 		return ResponseEntity.ok().body(listaDto);
 	}
+	
+	/**
+	 * Exibindo relatorio em formato PDF com Jasper Reports.
+	 * @param response - HttpServletResponse - response.
+	 * @throws JRException - Exceção JRException.
+	 * @throws SQLException - Exceção SQLException.
+	 */
+	@RequestMapping( value = "/relatorio", method = RequestMethod.GET)
+	public void printPdfJasperProduto( HttpServletResponse response ) throws JRException, IOException, SQLException {
+		
+		// Capturar o dados transformando em Stream
+		InputStream relatorioStream = this.getClass().getResourceAsStream("/relatorios/Produto_Modelo.jasper");
+		
+		//Criando um Map
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		// Outra maneira de se trabalhar com relatorios utilizando jasper é usar o HashMap params.
+//		params.put("PARAM_1", "CUSTOM PARAM");
+		
+		// Criar o objeto Jasper Reports
+		// O trecho abaixo é o necessarios para geração de relatorio em formato PDF.
+		// Faço a captura dos meu item(JasperReports)
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(relatorioStream);
+		
+		// Com o objeto jasper aqui capturado, proximo passo é mandar os dados para dentro do (Detail1) = Jasper Reports
+		//Preencho com os meus dados.
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource.getConnection());
+		
+		// Setar nosso content type no response passando o tipo de arquivo que será gerado.
+		response.setContentType("application/pdf");
+		
+		response.setHeader("Content-Disposition", "inline; filename=produtos_relatorios.pdf");
+		
+		try {
+			//Em um bloco try/catch finalizo com OutPutStream
+			//Obs: poderia usar ByteArrayOutPutStream também
+			OutputStream outputStream = response.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
