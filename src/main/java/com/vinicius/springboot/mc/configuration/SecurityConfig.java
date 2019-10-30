@@ -56,6 +56,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/auth/forgot/**"
 	};
 	
+	private static final String[] SWAGGER_DOCS_LIST = { 
+            // -- swagger ui
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"	
+	};
+	
 	/**
 	 * Configuração para permitir nossos acessos a partir das nossas chaves de vetores.
 	 */
@@ -71,7 +82,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		security.cors().and().csrf().disable();
 		security.authorizeRequests()
 			.antMatchers( HttpMethod.GET, PERMISSIONS_GET).permitAll()
+			.antMatchers(HttpMethod.GET, SWAGGER_DOCS_LIST).permitAll()
 			.antMatchers( HttpMethod.POST, PERMISSIONS_POST).permitAll()
+			.antMatchers(HttpMethod.POST, SWAGGER_DOCS_LIST).permitAll()
 			.antMatchers(PERMISSIONS).permitAll()
 			.anyRequest().authenticated();
 		security.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));

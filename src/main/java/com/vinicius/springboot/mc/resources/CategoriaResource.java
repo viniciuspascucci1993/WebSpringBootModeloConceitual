@@ -1,17 +1,9 @@
 package com.vinicius.springboot.mc.resources;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +22,14 @@ import com.vinicius.springboot.mc.dto.CategoriaDTO;
 import com.vinicius.springboot.mc.model.Categoria;
 import com.vinicius.springboot.mc.services.CategoriaService;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Classe CategoriaResource que representa os nossos serviços REST.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@Api(value = "API REST modelo conceitual e estudo de caso - Model Categorias")
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
@@ -48,15 +37,13 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService service;
 	
-	@Autowired
-	private DataSource dataSource;
-	
 	/**
-	 * Metodo GET para requisições de consulta
+	 * Metodo GET para requisições de consulta.
 	 * @param id - Integer - id da categoria.
 	 * @return ResponseEntity<Categoria>
 	 */ 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para requisições de consulta.", code = 200)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Categoria> find( @PathVariable Integer id ) {
 		
 		Categoria categoriaObj = service.find(id);
@@ -69,8 +56,9 @@ public class CategoriaResource {
 	 * @param categoriaObj - Object - categoriaObj.
 	 * @return ResponseEntity.created.
 	 */
+	@ApiOperation(value = "Metodo POST para inserir uma nova categoria. Obs: Apenas quem for ADMIN consegue inserir uma nova categoria", code = 201)
 	@PreAuthorize("hasAnyRole('ADMIN')") 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping( produces = "application/json", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert( @Valid @RequestBody CategoriaDTO objDto ) {
 		
 		Categoria objeto = service.convertFromDTO(objDto);
@@ -88,8 +76,9 @@ public class CategoriaResource {
 	 * @param categoriaObj - Object - categoriaObj.
 	 * @return ResponseEntity.created.
 	 */
+	@ApiOperation(value = "Metodo PUT para atualizar uma nova categoria. Obs: Apenas quem for ADMIN consegue atualizar uma categoria", code = 204)
 	@PreAuthorize("hasAnyRole('ADMIN')") 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update( @Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id ) {
 		
 		Categoria objeto = service.convertFromDTO(objDto);
@@ -106,8 +95,9 @@ public class CategoriaResource {
 	 * @param id - Integer - id da categoria.
 	 * @return ResponseEntity<Void>
 	 */
+	@ApiOperation(value = "Metodo DELETE para excluir uma categoria. Obs: Apenas quem for ADMIN consegue deletar uma categoria", code = 204)
 	@PreAuthorize("hasAnyRole('ADMIN')") 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete( @PathVariable Integer id ) {
 		
 		service.delete(id);
@@ -120,7 +110,8 @@ public class CategoriaResource {
 	 * Metodo GET para listar todas as categorias.
 	 * @return ResponseEntity<Categoria>
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para listar todas as categorias.", code = 200)
+	@RequestMapping( produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		
 		List<Categoria> lista = service.findAll();
@@ -135,7 +126,8 @@ public class CategoriaResource {
 	 * Metodo GET para paginação das categorias.
 	 * @return ResponseEntity.ok().body(listaDto).
 	 */
-	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para paginação das categorias.", code = 200)
+	@RequestMapping( produces = "application/json", value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, 
@@ -147,49 +139,6 @@ public class CategoriaResource {
 		Page<CategoriaDTO> listaDto = lista.map(categoriaObj -> new CategoriaDTO(categoriaObj)); // Assim convertemos uma lista para outta lista
 		
 		return ResponseEntity.ok().body(listaDto);
-	}
-	
-	/**
-	 * Exibindo relatorio em formato PDF com Jasper Reports.
-	 * @param response - HttpServletResponse - response.
-	 * @throws JRException - Exceção JRException.
-	 * @throws SQLException - Exceção SQLException.
-	 */
-	@RequestMapping( value = "/relatorio", method = RequestMethod.GET)
-	public void printPdfJasperProduto( HttpServletResponse response ) throws JRException, IOException, SQLException {
-		
-		// Capturar o dados transformando em Stream
-		InputStream relatorioStream = this.getClass().getResourceAsStream("/relatorios/Produto_Modelo.jasper");
-		
-		//Criando um Map
-		Map<String, Object> params = new HashMap<String, Object>();
-		
-		// Outra maneira de se trabalhar com relatorios utilizando jasper é usar o HashMap params.
-//		params.put("PARAM_1", "CUSTOM PARAM");
-		
-		// Criar o objeto Jasper Reports
-		// O trecho abaixo é o necessarios para geração de relatorio em formato PDF.
-		// Faço a captura dos meu item(JasperReports)
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(relatorioStream);
-		
-		// Com o objeto jasper aqui capturado, proximo passo é mandar os dados para dentro do (Detail1) = Jasper Reports
-		//Preencho com os meus dados.
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource.getConnection());
-		
-		// Setar nosso content type no response passando o tipo de arquivo que será gerado.
-		response.setContentType("application/pdf");
-		
-		response.setHeader("Content-Disposition", "inline; filename=produtos_relatorios.pdf");
-		
-		try {
-			//Em um bloco try/catch finalizo com OutPutStream
-			//Obs: poderia usar ByteArrayOutPutStream também
-			OutputStream outputStream = response.getOutputStream();
-			JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

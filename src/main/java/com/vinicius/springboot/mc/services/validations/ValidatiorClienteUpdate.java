@@ -31,11 +31,11 @@ public class ValidatiorClienteUpdate implements ConstraintValidator<ValidationCl
 	@Override
 	public void initialize( ValidationClienteUpdate nome ) { }
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
 		
 		// Dessa forma pegamos o URI do endPoint. Ex cliente/1
-		@SuppressWarnings("unchecked")
 		Map<String, String> map = ( Map<String, String> ) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 		
 		Integer uriId = Integer.parseInt(map.get("id"));

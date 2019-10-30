@@ -25,6 +25,8 @@ import com.vinicius.springboot.mc.model.Produto;
 import com.vinicius.springboot.mc.resources.util.UrlAuxiliarUtil;
 import com.vinicius.springboot.mc.services.ProdutoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -36,6 +38,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
  * Classe ProdutoResource que representa os nossos serviços REST.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@Api(value = "API REST modelo conceitual e estudo de caso - Model Produto")
 @RestController
 @RequestMapping(value = "/produtos")
 public class ProdutoResource {
@@ -47,11 +50,12 @@ public class ProdutoResource {
 	private DataSource dataSource;
 	
 	/**
-	 * Metodo GET para requisições de consulta
+	 * Metodo GET para requisições de consulta.
 	 * @param id - Integer - id do produto.
 	 * @return ResponseEntity<Produto>
 	 */	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para requisições de consulta.", code = 200)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Produto> find( @PathVariable Integer id ) {
 		
 		Produto produtoiaObj = service.find(id);
@@ -64,7 +68,8 @@ public class ProdutoResource {
 	 * Metodo GET para paginação dos produtos.
 	 * @return ResponseEntity.ok().body(listaDto).
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para paginação dos produtos.", code = 200)
+	@RequestMapping( produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<Page<ProdutoDTO>> findPage(
 			@RequestParam(value = "nomeProduto", defaultValue = "") String nomeProduto,
 			@RequestParam(value = "categorias", defaultValue = "") String categorias,
@@ -90,7 +95,8 @@ public class ProdutoResource {
 	 * @throws JRException - Exceção JRException.
 	 * @throws SQLException - Exceção SQLException.
 	 */
-	@RequestMapping( value = "/relatorio", method = RequestMethod.GET)
+	@ApiOperation(value = "Exibindo relatorio em formato PDF com Jasper Reports.")
+	@RequestMapping( produces = "application/json", value = "/relatorio", method = RequestMethod.GET)
 	public void printPdfJasperProduto( HttpServletResponse response ) throws JRException, IOException, SQLException {
 		
 		// Capturar o dados transformando em Stream

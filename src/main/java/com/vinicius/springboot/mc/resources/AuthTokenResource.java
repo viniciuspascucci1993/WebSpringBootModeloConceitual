@@ -16,12 +16,14 @@ import com.vinicius.springboot.mc.security.util.JWTUtil;
 import com.vinicius.springboot.mc.services.AuthService;
 import com.vinicius.springboot.mc.services.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
- * Classe responsável por utilizar um método de refresh token ( tempo de
- * expiração)
- * 
+ * Classe responsável por utilizar um método de refresh token ( tempo de expiração)
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@Api(value = "API REST modelo conceitual e estudo de caso - auth/forgot")
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthTokenResource {
@@ -33,11 +35,12 @@ public class AuthTokenResource {
 	private AuthService service;
 
 	/**
-	 * Metodo pPOST para requisições de refresh token ( novo token)
+	 * Metodo POST para requisições de refresh token ( novo token)
 	 * @param response
 	 * @return ResponseEntity.noContent
 	 */
-	@RequestMapping(value = "/refresh_token", method = RequestMethod.POST)
+	@ApiOperation(value = "Metodo POST para requisições de refresh token ( novo token) - Refresh Token", code = 204)
+	@RequestMapping( produces = "application/json", value = "/refresh_token", method = RequestMethod.POST)
 	public ResponseEntity<Void> refreshToken(HttpServletResponse response) {
 		
 		UserSpringSecurity user = UserService.getUserLogado();
@@ -54,6 +57,7 @@ public class AuthTokenResource {
 	 * @param response
 	 * @return 
 	 */
+	@ApiOperation(value = "Metodo POST para esqueci minha Senha. - Forgot password", code = 204)
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
 	public ResponseEntity<Void> forgot( @Valid @RequestBody AuxEmailDTO objDto ) {
 				

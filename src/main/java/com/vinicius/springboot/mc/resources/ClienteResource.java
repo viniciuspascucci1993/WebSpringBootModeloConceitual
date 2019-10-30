@@ -24,10 +24,14 @@ import com.vinicius.springboot.mc.dto.ClienteNewDTO;
 import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.services.ClienteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Classe ClienteResource que representa os nossos serviços REST.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@Api( value = "API REST modelo conceitual e estudo de caso - Model Cliente")
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
@@ -40,7 +44,8 @@ public class ClienteResource {
 	 * @param id - Integer - id do cliente.
 	 * @return ResponseEntity<Cliente>
 	 */	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para requisições de consulta listando pelo ID.")
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> find( @PathVariable Integer id ) {
 		
 		Cliente clienteObj = service.find(id);
@@ -54,7 +59,8 @@ public class ClienteResource {
 	 * @param clienteObj - Object - clienteaObj.
 	 * @return ResponseEntity.created.
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@ApiOperation(value = "Metodo POST para inserir um cliente.", code = 201)
+	@RequestMapping( produces = "application/json", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert( @Valid @RequestBody ClienteNewDTO objDto ) {
 		
 		Cliente objeto = service.convertFromDTO(objDto);
@@ -68,11 +74,12 @@ public class ClienteResource {
 	}
 	
 	/**
-	 * Metodo PUT para atualizar uma nova categoria.
-	 * @param categoriaObj - Object - categoriaObj.
+	 * Metodo PUT para atualizar um novo cliente.
+	 * @param clienteObj - Object - clienteObj.
 	 * @return ResponseEntity.created.
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Metodo PUT para atualizar uma nova categoria.", code = 204)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update( @Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id ) {
 		
 		Cliente objeto = service.convertFromDTO(objDto);
@@ -85,12 +92,13 @@ public class ClienteResource {
 	}
 	
 	/**
-	 * Metodo DELETE para excluir uma categoria.
-	 * @param id - Integer - id da categoria.
+	 * Metodo DELETE para excluir um cliente.
+	 * @param id - Integer - id do cliente.
 	 * @return ResponseEntity<Void>
 	 */
+	@ApiOperation(value = "Metodo DELETE para excluir um cliente. Obs: Só é possivel excluir um cliente quem tem permissão de ADMIN", code = 204)
 	@PreAuthorize("hasAnyRole('ADMIN')") 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete( @PathVariable Integer id ) {
 		
 		service.excluir(id);
@@ -100,11 +108,12 @@ public class ClienteResource {
 	
 
 	/**
-	 * Metodo GET para listar todas as categorias.
+	 * Metodo GET para listar todas os clientes.
 	 * @return ResponseEntity<Cliente>
 	 */
+	@ApiOperation(value = "Metodo GET para listar todas os clientes. Obs: Só é possivel listar todos os clientes quem tem permissão de ADMIN", code = 200)
 	@PreAuthorize("hasAnyRole('ADMIN')") 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping( produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		
 		List<Cliente> lista = service.findAll();
@@ -116,9 +125,10 @@ public class ClienteResource {
 	}
 	
 	/**
-	 * Metodo GET para paginação das categorias.
+	 * Metodo GET para paginação de clientes.
 	 * @return Page
 	 */
+	@ApiOperation(value = "Metodo GET para paginação de clientes. Obs: Só é possivel paginar os clientes quem tem permissão de ADMIN", code = 200)
 	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<ClienteDTO>> encontrarClientesPorPaginacao(
@@ -135,10 +145,11 @@ public class ClienteResource {
 	}
 	
 	/**
-	 * Metodo para enviar imagem de profile para o S3.
+	 * Metodo para enviar imagem de profile do cliente para o S3.
 	 * @param file - MultipartFile.
 	 * @return ResponseEntity.created(uri).build();
 	 */
+	@ApiOperation(value = "Metodo para enviar imagem de profile do cliente para o S3.", code = 201)
 	@RequestMapping( value = "/picture", method = RequestMethod.POST)
 	public ResponseEntity<Void> uploadPicture( @RequestParam(name = "file") MultipartFile file ) {
 		

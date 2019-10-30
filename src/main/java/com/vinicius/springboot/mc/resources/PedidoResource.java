@@ -18,10 +18,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.vinicius.springboot.mc.model.Pedido;
 import com.vinicius.springboot.mc.services.PedidoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Classe PedidoResource que representa os nossos serviços REST.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
+@Api(value = "API REST modelo conceitual e estudo de caso - Model Pedido")
 @RestController
 @RequestMapping(value = "/pedidos")
 public class PedidoResource {
@@ -30,11 +34,12 @@ public class PedidoResource {
 	private PedidoService service;
 	
 	/**
-	 * Metodo GET para requisições de consulta
+	 * Metodo GET para requisições de consulta.
 	 * @param id - Integer - id do pedido.
 	 * @return ResponseEntity<Pedido>
 	 */	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para requisições de consulta.", code = 200)
+	@RequestMapping( produces = "application/json", value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Pedido> find( @PathVariable Integer id ) {
 		
 		Pedido pedidoObj = service.buscar(id);
@@ -48,7 +53,8 @@ public class PedidoResource {
 	 * @param obj - Object - obj.
 	 * @return ResponseEntity.created.
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@ApiOperation(value = "Metodo POST para inserir um novo pedido.", code = 201)
+	@RequestMapping( produces = "application/json", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert( @Valid @RequestBody Pedido obj ) {
 			
 		obj = service.insert( obj );
@@ -63,7 +69,8 @@ public class PedidoResource {
 	 * Metodo GET para paginação das categorias.
 	 * @return ResponseEntity.ok().body(listaDto).
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@ApiOperation(value = "Metodo GET para paginação das categorias.", code = 200)
+	@RequestMapping( produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<Page<Pedido>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, 
