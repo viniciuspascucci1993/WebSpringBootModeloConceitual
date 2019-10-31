@@ -14,9 +14,19 @@ public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Representa o momento do erro.
+	 */
+	private Long timestamp;
+	
+	/**
 	 * Representa o status HTTP.
 	 */
 	private Integer statusHttp;
+	
+	/**
+	 * Representa o erro.
+	 */
+	private String error;
 	
 	/**
 	 * Representa a mensagem.
@@ -24,9 +34,11 @@ public class StandardError implements Serializable {
 	private String message;
 	
 	/**
-	 * Representa o momento do erro.
+	 * Representa o caminho do erro.
 	 */
-	private Long timeStamp;
+	private String path;
+	
+
 
 	/**
 	 * Construtor com argumentos.
@@ -34,19 +46,53 @@ public class StandardError implements Serializable {
 	 * @param message - String - mensagem do erro.
 	 * @param timeStamp - Long - momento do erro.
 	 */
-	public StandardError(Integer statusHttp, String message, Long timeStamp) {
+	public StandardError(Long timestamp, Integer statusHttp, String error, String message, String path) {
 		super();
+		this.timestamp = timestamp;
 		this.statusHttp = statusHttp;
+		this.error = error;
 		this.message = message;
-		this.timeStamp = timeStamp;
+		this.path = path;
 	}
 
+	/**
+	 * Metodo get().
+	 * @return timeStamp - Long - momento do erro.
+	 */
+	public Long getTimeStamp() {
+		return this.timestamp;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param timeStamp - Long - momento do erro.
+	 */
+	public void setTimeStamp(final Long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 	/**
 	 * Metodo get().
 	 * @return statusHttp - Integer - status http.
 	 */
 	public Integer getStatusHttp() {
 		return this.statusHttp;
+	}
+
+	/**
+	 * Metodo get().
+	 * @return error - String - erro.
+	 */
+	public String getError() {
+		return this.error;
+	}
+
+	/**
+	 * Metodo set().
+	 * @param error - String - erro.
+	 */
+	public void setError(final String error) {
+		this.error = error;
 	}
 
 	/**
@@ -75,18 +121,20 @@ public class StandardError implements Serializable {
 
 	/**
 	 * Metodo get().
-	 * @return timeStamp - Long - momento do erro.
+	 * @return path - String - caminho do erro.
 	 */
-	public Long getTimeStamp() {
-		return this.timeStamp;
+	public String getPath() {
+		return this.path;
 	}
 
 	/**
 	 * Metodo set().
-	 * @param timeStamp - Long - momento do erro.
+	 * @param path - String - caminho do erro.
 	 */
-	public void setTimeStamp(final Long timeStamp) {
-		this.timeStamp = timeStamp;
+	public void setPath(final String path) {
+		this.path = path;
 	}
+
+	
 
 }

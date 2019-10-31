@@ -20,9 +20,16 @@ public class ValidationError extends StandardError {
 	 */
 	private List<FieldMessage> errors = new ArrayList<FieldMessage>();
 	
-	public ValidationError(Integer statusHttp, String message, Long timeStamp) {
-		super(statusHttp, message, timeStamp);
-		
+	/**
+	 * Construtor com argumentos.
+	 * @param timestamp - Long - timestamp.
+	 * @param statusHttp - Integer - status.
+	 * @param error - String - error.
+	 * @param message - String - message.
+	 * @param path - String - path.
+	 */
+	public ValidationError(Long timestamp, Integer statusHttp, String error, String message, String path) {
+		super(timestamp, statusHttp, error, message, path);
 	}
 
 	/**
