@@ -116,4 +116,4 @@ public class ImageService {
 		return Scalr.resize(sourceImg, Scalr.Method.ULTRA_QUALITY, size);
 	}
 	
-	}
+}

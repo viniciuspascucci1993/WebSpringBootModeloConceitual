@@ -32,12 +32,20 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	private JWTUtil jwtUtil;
 	
-	
+	/**
+	 * Construtor com argumentos.
+	 * @param authenticationManager - AuthenticationManager - autentication.
+	 * @param jwtUtil - JwtUtil - Classe Utilitária.
+	 */
 	public JWTAuthenticationFilter( AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
 		this.authenticationManager = authenticationManager;
 		this.jwtUtil = jwtUtil;
 	}
 	
+	/**
+	 * Metodo que consiste em uma tentativa de autenticação por meio de um login e senha do cliente.
+	 * @return Authentication auth;
+	 */
 	@Override
 	 public Authentication attemptAuthentication( HttpServletRequest req, HttpServletResponse res ) throws AuthenticationException {
 		 
@@ -57,6 +65,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}
 	 }
 	
+	/**
+	 * Metodo para caso a autenticação seja bem sucedida.
+	 */
 	@Override
 	protected void successfulAuthentication( HttpServletRequest req, 
 											 HttpServletResponse res, 
@@ -73,6 +84,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 	}
 	
+	/**
+	 * Metodo para caso aconteça alguma falha de autenticação no momento do login.
+	 * @author Vinicius-PC - Vinicius Torres Pascucci.
+	 */
 	@SuppressWarnings("unused")
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
@@ -84,6 +99,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.getWriter().append(json());
         }
         
+        /**
+         * Metodo private indicando a saida JSON caos a resposta da requisição falha e retorne um status code 401: Não Autorizado.
+         * @return JSON.
+         */
         private String json() {
             long date = new Date().getTime();
             return "{\"timestamp\": " + date + ", "

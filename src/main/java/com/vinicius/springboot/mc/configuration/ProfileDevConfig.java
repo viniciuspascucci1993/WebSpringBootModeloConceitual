@@ -44,6 +44,10 @@ public class ProfileDevConfig {
 		return true;
 	}
 	
+	/**
+	 * Bean de configuração para simular envio de email SMTP com o servidor da Google.
+	 * @return SmtpEmailService().
+	 */
 	@Bean
 	public EmailService enviarEmailSmtp() {
 		return new SmtpEmailService();

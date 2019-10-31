@@ -26,13 +26,22 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 	
 	private UserDetailsService userDetailsService;
 	
+	/**
+	 * Construtor com argumentos.
+	 * @param authenticationManager - AuthenticationManager - authentication.
+	 * @param jwtUtil - JwtUtil - Classe Utilitária.
+	 * @param userDetailsService - UserDetailService - detalhes do usuario.
+	 */
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserDetailsService userDetailsService) {
 		super(authenticationManager);
-		
 		this.jwtUtil = jwtUtil;
 		this.userDetailsService = userDetailsService;
 	}
 	
+	/**
+	 * Metodo doFilterInternal().
+	 * Responsável por realizar um filtro internal fornecendo no header da requisição o Authorization, após isso como valor fornece Bearer e o token adiquirido na resposta.
+	 */
 	@Override
 	protected void doFilterInternal( HttpServletRequest request,
 									 HttpServletResponse response,
@@ -50,6 +59,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 		chain.doFilter(request, response);
 	}
 
+	/**
+	 * Metodo para capturar a authentication do usuario.
+	 * @param token - String - token.
+	 * @return UsernamePasswordAuthenticationToken.
+	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
 		
 		if (jwtUtil.tokenValido(token)) {

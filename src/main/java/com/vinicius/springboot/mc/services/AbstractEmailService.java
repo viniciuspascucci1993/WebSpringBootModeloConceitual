@@ -17,6 +17,9 @@ public abstract class AbstractEmailService implements EmailService{
 	@Value("${default.sender}")
 	private String sender;
 
+	/**
+	 * Metodo para enviar uma confirmação de email.
+	 */
 	// Implementação do metodo para enviar e-mail
 	@Override
 	public void sendOrderConfirmationEmail( Pedido pedido) {
@@ -26,6 +29,11 @@ public abstract class AbstractEmailService implements EmailService{
 		sendEmail(message);
 	}
 
+	/**
+	 * Metodo para preparar um email a partir do Pedido.
+	 * @param pedido - Pedido - pedido.
+	 * @return SimpleMailMessage message.
+	 */
 	protected SimpleMailMessage prepareSimpleMailMessageFromPedid(Pedido pedido) {
 		
 		SimpleMailMessage message = new SimpleMailMessage();
@@ -39,6 +47,9 @@ public abstract class AbstractEmailService implements EmailService{
 		return message;
 	}
 	
+	/**
+	 * Metodo que envia a nova senha por email.
+	 */
 	@Override
 	public void sendNewPasswordEmail(Cliente cliente, String newPas) {
 		
@@ -47,6 +58,12 @@ public abstract class AbstractEmailService implements EmailService{
 		sendEmail(message);
 	}
 
+	/**
+	 * Metodo que preparar a criação da nova senha e envia para o e-mail do usuario.
+	 * @param cliente - Cliente - cliente.
+	 * @param newPass - String - nova senha.
+	 * @return SimpleMailMessage message.
+	 */
 	protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
 		
 		SimpleMailMessage message = new SimpleMailMessage();

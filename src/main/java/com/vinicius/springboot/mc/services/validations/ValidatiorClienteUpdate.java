@@ -31,6 +31,10 @@ public class ValidatiorClienteUpdate implements ConstraintValidator<ValidationCl
 	@Override
 	public void initialize( ValidationClienteUpdate nome ) { }
 	
+	/**
+	 * Metodo isValid para checagem de CPF/CNPJ Inválido e email inválido no momento de uma atualização.
+	 * @return lista.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {

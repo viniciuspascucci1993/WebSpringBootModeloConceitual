@@ -20,6 +20,10 @@ public class UserDetailServiceImpl implements UserDetailsService{
 	@Autowired
 	private ClienteRepository repository;
 	
+	/**
+	 * Metodo que busca um usuario pelo ID
+	 * @return detalhes do cliente - Cliente - id, email, senha, Perfil perfis.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		

@@ -17,6 +17,9 @@ public class SmtpEmailService extends AbstractEmailService{
 	@Autowired
 	private MailSender mailSender;
 	
+	/**
+	 * Simulando envio de email SMTP com o servidor da Google
+	 */
 	@Override
 	public void sendEmail(SimpleMailMessage mensagem) {
 		

@@ -84,8 +84,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		security.cors().and().csrf().disable();
 		security.authorizeRequests()
 			.antMatchers(HttpMethod.POST, SWAGGER_DOCS_LIST).permitAll()
-			.antMatchers( HttpMethod.POST, PERMISSIONS_POST).permitAll()
 			.antMatchers( HttpMethod.GET, PERMISSIONS_GET).permitAll()
+			.antMatchers( HttpMethod.POST, PERMISSIONS_POST).permitAll()
 			.antMatchers(HttpMethod.GET, SWAGGER_DOCS_LIST).permitAll()
 			.antMatchers(PERMISSIONS).permitAll()
 			.anyRequest().authenticated();

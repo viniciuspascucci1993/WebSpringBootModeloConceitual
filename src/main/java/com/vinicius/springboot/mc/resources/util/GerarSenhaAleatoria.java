@@ -10,6 +10,10 @@ public class GerarSenhaAleatoria {
 	
 	private static final Random rand = new Random();
 	
+	/**
+	 * Metodo para gerar uma senha aleatoria.
+	 * @return String.
+	 */
 	public static String generatePasswordNew() {
 		char[] vetor = new char[10];
 		
@@ -21,6 +25,10 @@ public class GerarSenhaAleatoria {
 		return new String(vetor);
 	}
 
+	/**
+	 * Metodo statico que faz uma manipulação com numeros e strings resultando em uma senha aleatoria.
+	 * @return char.
+	 */
 	private static char generateRandomChar() {
 		
 		int opt = rand.nextInt(3);

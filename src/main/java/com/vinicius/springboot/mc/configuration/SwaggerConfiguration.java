@@ -52,6 +52,10 @@ public class SwaggerConfiguration {
 				.build();
 	}
 	
+	/**
+	 * Configuração dos informativos para a documentação.
+	 * @return ApiInfo().
+	 */
 	@SuppressWarnings("rawtypes")
 	public ApiInfo infoDocumentation() {
 		

@@ -22,7 +22,11 @@ public class JWTUtil {
 	@Value("${jwt.expiration}")
 	private Long expiresToken;
 	
-	
+	/**
+	 * Metodo para gerar TOKEN.
+	 * @param username - String - login.
+	 * @return Jws.builder.
+	 */
 	// Metodo para gerar TOKEN.
 	public String generateToken(String username) {
 		return Jwts.builder()
@@ -32,6 +36,11 @@ public class JWTUtil {
 				.compact();
 	}
 	
+	/**
+	 * Metodo para verificar se o TOKEN é válido.
+	 * @param token - String - token.
+	 * @return true.
+	 */
 	// Testando se um token é válido
 	public boolean tokenValido(String token) {
 		
@@ -51,6 +60,11 @@ public class JWTUtil {
 		return false;
 	}
 
+	/**
+	 * Metodo para recuperar um Claims a partir de um token
+	 * @param token - String - token.
+	 * @return secret.
+	 */
 	// Função que recupera os Claims a partir de um token
 	private Claims getClaims(String token) {
 		
@@ -62,7 +76,12 @@ public class JWTUtil {
 		}
 	}
 	
-	// Capyturando um usuario
+	/**
+	 * Metodo para capturar um usuario (getUsername)
+	 * @param token - String - token.
+	 * @return usuario.
+	 */
+	// Capiturando um usuario
 	public String getUsername(String token) {
 		
 		Claims claims = getClaims(token);

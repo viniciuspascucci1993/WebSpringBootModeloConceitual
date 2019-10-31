@@ -72,42 +72,73 @@ public class UserSpringSecurity implements UserDetails{
 		return this.id;
 	}
 	
+	/**
+	 * Metodo que retorna um GrantedAuthorities.
+	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 
+	/**
+	 * Metogo getPassword().
+	 */
 	@Override
 	public String getPassword() {
-		return senha;
+		return this.senha;
 	}
 
+	/**
+	 * Metodo getUsername().
+	 * @return this.email.
+	 */
 	@Override
 	public String getUsername() {
-		return email;
+		return this.email;
 	}
 
+	/**
+	 * Metodo boleano que verifica se a conta esta expirada.
+	 * @return true.
+	 */
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
+	/**
+	 * Metodo boleano que verifica se a conta não esta travada.
+	 * @return true.
+	 */
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
+	/**
+	 * Metodo boleano que verifica se as credenciais não estão expiradas.
+	 * @return true.
+	 */
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
+	/**
+	 * Metodo boleano que verifica se esta habilitado ( usuario, login...).
+	 * @return true.
+	 */
 	@Override
 	public boolean isEnabled() {
 		return true;
 	}
 	
 	// Metodo para verificar se o usuario possui permissão de ADMIN 
+	/**
+	 * Metodo para verificar se o usuario tem permissão de ADMIN.
+	 * @param perfil - Perfil - Enum.
+	 * @return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao().
+	 */
 	public boolean hasPermission( Perfil perfil) {
 		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
 	}

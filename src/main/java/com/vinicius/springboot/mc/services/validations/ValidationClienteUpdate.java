@@ -11,7 +11,6 @@ import javax.validation.Payload;
 /**
  * Anotação customizada para anotar no topo da nossa classe de modelo para validações como CPF e/ou CNPJ na atualização do cliente.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
- *
  */
 @Constraint(validatedBy = ValidatiorClienteUpdate.class) 
 @Target({ ElementType.TYPE }) 

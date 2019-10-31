@@ -70,6 +70,10 @@ public class DatabaseService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 
+	/**
+	 * Metodo que instancia nossos modelos.
+	 * @throws ParseException - Exceção para SimpleDateFormat.
+	 */
 	public void instantiateTestDatabase() throws ParseException {
 		
 		Categoria categoria1 = new Categoria(null, "Informática");
@@ -221,7 +225,7 @@ public class DatabaseService {
 		
 		Cliente cliente02 = new Cliente(null, "Ana Costa Silveira", "ana.costa@gmail.com", "731.758.640-40", TipoCliente.PESSOA_FISICA, encoderPassword.encode("456"));
 		
-		cliente02.addPerfil(Perfil.ADMIN);
+		cliente01.addPerfil(Perfil.ADMIN);
 		
 		cliente01.getTelefones().addAll(Arrays.asList("112544-9669", "1194558-9975"));
 		cliente02.getTelefones().addAll(Arrays.asList("114457-8970", "1199674-5580"));

@@ -6,15 +6,18 @@ import com.vinicius.springboot.mc.model.Cliente;
 import com.vinicius.springboot.mc.model.Pedido;
 
 /**
-* Service responsável por enviar um e-mail com os padrões strategy e template method.
+* Service responsável por conter os metodos que enviam email, novo password e ordem de confirmação de pedido.
 * @author Vinicius-PC - Vinicius Torres Pascucci.
 */
 public interface EmailService {
 	
+	// Enviar ordem de confirmação de pedido
 	void sendOrderConfirmationEmail( Pedido pedido);
 	
+	// Enviar e-mail
 	void sendEmail( SimpleMailMessage mensagem);
 	
+	// Enviar novo password por email.
 	void sendNewPasswordEmail(Cliente cliente, String email);
 
 }

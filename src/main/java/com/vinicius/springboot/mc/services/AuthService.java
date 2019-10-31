@@ -25,6 +25,10 @@ public class AuthService {
 	@Autowired
 	private EmailService emailService;
 	
+	/**
+	 * Service responsável por enviar uma nova senha ao email do usuario.
+	 * @param email - String - email.
+	 */
 	public void sendNewPassword(String email) {
 		//verificar se o email existe
 		 Cliente cliente = clienteRepository.findByEmail(email);

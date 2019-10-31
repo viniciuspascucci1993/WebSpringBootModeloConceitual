@@ -19,11 +19,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class HeaderExposureFilter implements Filter {
 
+	/**
+	 * Metodo void init().
+	 */
+	@Override
 	public void init( FilterConfig filterConfig ) throws ServletException {
 		
 	}
 	
 	
+	/**
+	 * Metodo void doFilter().
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -35,6 +42,9 @@ public class HeaderExposureFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 	
+	/**
+	 * Metodo void destroy().
+	 */
 	@Override
 	public void destroy() { }
 

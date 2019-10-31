@@ -27,6 +27,10 @@ public class ValidatiorClienteInsert implements ConstraintValidator<ValidationCl
 	@Override
 	public void initialize( ValidationClienteInsert nome ) { }
 	
+	/**
+	 * Metodo isValid para checagem de CPF/CNPJ Inválido e email inválido no momento de uma inserção
+	 * @return List<FieldMessage>.
+	 */
 	@Override
 	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
 		
