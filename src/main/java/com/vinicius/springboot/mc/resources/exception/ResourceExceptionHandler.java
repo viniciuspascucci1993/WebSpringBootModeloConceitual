@@ -18,7 +18,7 @@ import com.vinicius.springboot.mc.services.exception.FileException;
 import com.vinicius.springboot.mc.services.exception.ObjectNotFoundException;
 
 /**
- * Classe handler que representa a interceptação caos ocorra uma exceção o handler que vai lançar a resposta HTTP adequada.
+ * Classe handler que representa a interceptação caso ocorra uma exceção o handler que vai lançar a resposta HTTP adequada.
  * @author Vinicius-PC - Vinicius Torres Pascucci.
  */
 @ControllerAdvice

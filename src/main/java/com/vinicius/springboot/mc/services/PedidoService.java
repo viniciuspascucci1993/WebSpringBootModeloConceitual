@@ -3,6 +3,8 @@ package com.vinicius.springboot.mc.services;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,6 +68,7 @@ public class PedidoService {
 	 * @param id - Integer - id do pedido.
 	 * @return obj.
 	 */
+	@Transactional	
 	public Pedido insert(Pedido obj) {
 		
 		obj.setIdPedido(null);
@@ -74,7 +77,7 @@ public class PedidoService {
 		
 		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		
-		obj.getPagamento().setSituacaoPagamento(SituacaoPagamento.PAGAMENTO_APROVADO);
+		obj.getPagamento().setSituacaoPagamento(SituacaoPagamento.PENDENTE);
 		
 		obj.getPagamento().setPedido(obj);
 		
@@ -100,7 +103,7 @@ public class PedidoService {
 		}
 		itemPedidoRepository.saveAll(obj.getItems());
 		
-		emailService.sendOrderConfirmationEmail(obj);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		
 		return obj;
 	}

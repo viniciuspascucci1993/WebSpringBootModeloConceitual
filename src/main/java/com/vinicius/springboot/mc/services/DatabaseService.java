@@ -225,7 +225,7 @@ public class DatabaseService {
 		
 		Cliente cliente02 = new Cliente(null, "Ana Costa Silveira", "ana.costa@gmail.com", "731.758.640-40", TipoCliente.PESSOA_FISICA, encoderPassword.encode("456"));
 		
-		cliente01.addPerfil(Perfil.ADMIN);
+		cliente02.addPerfil(Perfil.ADMIN);
 		
 		cliente01.getTelefones().addAll(Arrays.asList("112544-9669", "1194558-9975"));
 		cliente02.getTelefones().addAll(Arrays.asList("114457-8970", "1199674-5580"));
@@ -248,26 +248,17 @@ public class DatabaseService {
 		pedido1.setPagamento(pagamento01);
 		
 		Pagamento pagamento02 = new PagamentoComBoleto(null, SituacaoPagamento.PENDENTE, pedido2, formatoData.parse("25/05/2019 20:30:55"), 
-					formatoData.parse("24/05/2019 20:30:00"), formatoData.parse("18/05/2019 12:40:10"));
-		
+					null);
 		pedido2.setPagamento(pagamento02);
 		
-		if (pagamento02.getSituacaoPagamento().equals(SituacaoPagamento.PEDIDO_CANCELADO)) {
-			pagamento02.setSituacaoPagamento(SituacaoPagamento.PEDIDO_CANCELADO);
-		
-		} else {
-			pagamento02.setSituacaoPagamento(SituacaoPagamento.PAGAMENTO_APROVADO);
-		}
-		
-		cliente01.getPedidos().addAll(Arrays.asList(pedido2));
-		cliente02.getPedidos().addAll(Arrays.asList(pedido1));
+		cliente01.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
 		
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento01, pagamento02));
 		
 		ItemPedido item1 = new ItemPedido(pedido1, produto1, 0.00, 2000.00, 2, "Computador gamer AOC HyperX");
-		ItemPedido item2 = new ItemPedido(pedido1, produto1, 0.00, 80.00, 5, "Mouse Wireless Gamer Razer X");
-		ItemPedido item3 = new ItemPedido(pedido1, produto1, 100.00, 800.00, 1, "Impressora HP Full color");
+		ItemPedido item2 = new ItemPedido(pedido1, produto3, 0.00, 80.00, 5, "Mouse Wireless Gamer Razer X");
+		ItemPedido item3 = new ItemPedido(pedido2, produto2	, 100.00, 800.00, 1, "Impressora HP Full color");
 		
 		pedido1.getItems().addAll(Arrays.asList(item1, item2));
 		pedido2.getItems().addAll(Arrays.asList(item3));
@@ -276,7 +267,7 @@ public class DatabaseService {
 		produto2.getItems().addAll(Arrays.asList(item3));
 		produto3.getItems().addAll(Arrays.asList(item2));
 		
-		itemPedidoRepository.saveAll(Arrays.asList(item1, item2, item3));
+		itemPedidoRepository.saveAll(Arrays.asList(item1, item2, item3));	
 
 	}
 }

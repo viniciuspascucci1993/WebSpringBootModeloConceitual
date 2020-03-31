@@ -52,18 +52,19 @@ public class Pedido implements Serializable{
 	private Pagamento pagamento;
 	
 	/**
+	 * Representa o cliente.
+	 */
+	@ManyToOne
+	@JoinColumn( name = "cliente_id")
+	private Cliente cliente;
+	
+	/**
 	 * Representa o endereço.
 	 */
 	@ManyToOne
 	@JoinColumn( name = "endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
-	/**
-	 * Representa o cliente.
-	 */
-	@ManyToOne
-	@JoinColumn( name = "cliente_id")
-	private Cliente cliente;
 	
 	/**
 	 * Representa uma coleção de item de pedido.
@@ -89,8 +90,8 @@ public class Pedido implements Serializable{
 		super();
 		this.idPedido = idPedido;
 		this.horarioPedido = horarioPedido;
-		this.enderecoDeEntrega = enderecoDeEntrega;
 		this.cliente = cliente;
+		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
 	/**
@@ -265,10 +266,5 @@ public class Pedido implements Serializable{
 		builder.append(numeroFormat.format(getValorTotal()));
 		return builder.toString();
 	}
-
-	
-	
-	
-	
 
 }
